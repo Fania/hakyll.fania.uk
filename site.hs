@@ -1,12 +1,21 @@
---------------------------------------------------------------------------------
+------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
 import           Hakyll
 
 
---------------------------------------------------------------------------------
+
+------------------------------------------------------------
+config :: Configuration
+config = defaultConfiguration
+        {   deployCommand = "rsync -avz -e ssh ./_site/ fania.uk@ssh.fania.uk:/www/hakyll"}
+
+------------------------------------------------------------
+
+------------------------------------------------------------
 main :: IO ()
-main = hakyll $ do
+-- main = hakyll $ do
+main = hakyllWith config $ do
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -15,7 +24,7 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-    match (fromList ["about.md", "contact.md", "uni.md", "other.md", "images.md", "dreams.md", "cheats.md"]) $ do
+    match (fromList ["about.md", "uni.md", "other.md", "images.md", "dreams.md", "cheats.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
@@ -60,7 +69,13 @@ main = hakyll $ do
     match "templates/*" $ compile templateCompiler
 
 
---------------------------------------------------------------------------------
+    -- copy site icon to `favicon.ico`
+    match "images/star.ico" $ do
+            route   (constRoute "star.ico")
+            compile copyFileCompiler
+
+
+------------------------------------------------------------
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`

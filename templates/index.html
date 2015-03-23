@@ -1,14 +1,9 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 
 <head>
-	<title>Fania</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="description" content="" />
-	<meta name="keywords" content="" />
-	<link rel="shortcut icon" href="images/star.ico" />
-  <link rel="stylesheet" type="text/css" href="/css/default.css" />
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+$partial("templates/head.html")$
+<title>Fania</title>
 </head>
 
 <body class="index">
@@ -24,23 +19,13 @@
       <li><a href="other.html">Other</a></li>
       <li><a href="images.html">Images</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Say Hi</a></li>
 		</ul>
 	</nav>
 </header>
 
-<section id="banner">
+$body$
 
-  <div id="content">
-    <h1>$title$</h1>
-    $body$
-  </div>
-
-</section>
-
-<footer id="footer">
-	<span class="copyright">Fania - <span title="March 2015 vulg.">Pédale 142</span><br></span>
-</footer>
+$partial("templates/footer.html")$
 
 </body>
 </html>

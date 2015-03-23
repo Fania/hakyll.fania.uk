@@ -1,43 +1,7 @@
-<!DOCTYPE HTML>
-
-<html>
-
-<head>
-	<title>Uni</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="description" content="" />
-	<meta name="keywords" content="" />
-	<link rel="shortcut icon" href="images/star.ico" />
-	<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/skel.min.js"></script>
-	<script src="js/skel-layers.min.js"></script>
-	<script src="js/init.js"></script>
-	<script src="js/arrow64.js"></script>
-	<noscript>
-		<link rel="stylesheet" href="css/default.css" />
-	</noscript>
-	<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-	<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
-</head>
-
-<body>
-
-<header id="header">
-	<h1><a href="index.html" class="logo">Fania.uk</a>
-		<span class="icon fa-mortar-board"> Uni</span>
-	</h1>
-	<nav id="nav">
-		<ul>
-			<li><a href="index.html">Home</a></li>
-			<li class="current"><a href="uni.html">Uni</a></li>
-			<li><a href="other.html">Other</a></li>
-			<li><a href="images.html">Images</a></li>
-			<li><a href="contact.html">Say Hi</a></li>  <!-- class="button special" -->
-		</ul>
-	</nav>
-</header>
-
+---
+title: Uni
+icon: mortar-board
+---
 
 <article id="main">
 
@@ -160,10 +124,3 @@
 	</section>
 
 </article>
-
-<footer id="footer">
-	<span class="copyright">Fania - <span title="June 2014 vulg.">Gidouille 142</span>
-</footer>
-
-</body>
-</html>

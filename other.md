@@ -1,3 +1,8 @@
+---
+title: Other
+icon: wheelchair
+---
+
 <article id="main">
 
 	<header class="special container">
@@ -355,15 +360,3 @@ n,0);}main(){S(Q(Ar),a)();}H              Ar;t*ist="Rene Magritte"-(1898-1967);
 	</section>
 
 </article>
-
-<footer id="footer">
-	<ul class="icons">
-		<li><a href="https://keybase.io/fania" class="icon circle fa-key" title="Because I clearly need it."><span class="label">Keybase</span></a></li>
-		<li><a href="https://twitter.com/faniiia" class="icon circle fa-twitter" title="Although I don't tweet. Ever."><span class="label">Twitter</span></a></li>
-		<li><a href="http://steamcommunity.com/id/faniiia" class="icon circle fa-steam" title="Because I like games."><span class="label">Steam</span></a></li>
-		<li><a href="https://github.com/fania" class="icon circle fa-github" title="Not much to see there."><span class="label">Github</span></a></li>
-		<li><a href="http://stackoverflow.com/users/1211967/fania" class="icon circle fa-stack-overflow" title="I'm rarely ever active though."><span class="label">Stack Overflow</span></a></li>
-		<li><a href="http://myanimelist.net/animelist/faniiia" class="icon circle fa-list-ol" title="I have too much spare time (when I'm sick)."><span class="label">My Anime List</span></a></li>
-	</ul>
-	<span class="copyright">Fania - <span title="June 2014 vulg.">Gidouille 142</span>
-</footer>
