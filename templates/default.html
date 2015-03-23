@@ -2,8 +2,10 @@
 <html>
 
 <head>
+
 $partial("templates/head.html")$
 <title>Fania - $title$</title>
+
 </head>
 
 <body>
@@ -11,9 +13,9 @@ $partial("templates/head.html")$
 <header id="header">
 	<h1><a href="index.html" class="logo">Fania.uk</a>
     $if(icon)$
-      <span class="icon fa-$icon$"> $title$</span>
+      <span class="icon fa-$icon$">&nbsp;&nbsp;&nbsp;$title$</span>
     $else$
-    <span class="icon fa-heart"> $title$</span>
+    	<span class="icon fa-heart">&nbsp;&nbsp;&nbsp;$title$</span>
     $endif$
 	</h1>
 	<nav id="nav">
@@ -27,13 +29,38 @@ $partial("templates/head.html")$
 	</nav>
 </header>
 
-  <article id="main">
+<article id="main">
+
+<header class="special container">
+	$if(icon)$
+		<span class="icon fa-$icon$"></span>
+	$else$
+		<span class="icon fa-heart"></span>
+	$endif$
+	$if(heading)$
+		<h2>$heading$</h2>
+	$else$
+		<h2>Hello</h2>
+	$endif$
+	$if(byline)$
+		<p>$byline$</p>
+	$else$
+		<p>Wie geht's?</p>
+	$endif$
+</header>
+
+<section class="wrapper style4 container">
+
+<div class="content">
 
   $body$
 
-  $partial("templates/footer.html")$
+</div>
+</section>
+</article>
 
-  </article>
+$partial("templates/footer.html")$
+
 </body>
 
 </html>
