@@ -15,7 +15,7 @@ header{
     font-weight:bold;
     height:32px;
     line-height:32px;
-    margin:24px 0px 12px 128px;
+    margin:30px 0 20px 128px;
     text-transform:uppercase}
     
 header img{
@@ -25,20 +25,10 @@ header img{
 header a{
     text-decoration:none}
     
-main{
-    margin:0px auto 0px auto;
-    width:670px;
-    float:right}
-    
-    div#content{
-        width:670px;
-        float:right}
-        
-
 nav{
     margin-right:30px;
     width:160px;
-    float:left}
+    float:left;}
     
 nav h1{
     clear:both;
@@ -55,12 +45,17 @@ nav a{
 nav img{
     margin:0px}
     
+main{
+    margin:0 0 0 190px;
+    width:860px;
+    overflow: hidden;}
 
 footer{
-    padding-top:30px;
+    margin:30px 0 0 190px;
+    width:860px;
     clear:both;
     font-size:90%;
-    text-align:center}
+    color:grey;}
     
 p{
     padding:0px;
