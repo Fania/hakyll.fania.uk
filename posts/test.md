@@ -1,6 +1,8 @@
 ---
-title: Test
+title: Stuff
 date: 2017-09-14
 ---
+
+# Test Post
 
 sdkjhskhd

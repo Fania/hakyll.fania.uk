@@ -50,6 +50,9 @@ main{
     width:860px;
     overflow: hidden;}
 
+.postheader{
+    margin-top:10px;}
+
 footer{
     margin:30px 0 0 190px;
     width:860px;

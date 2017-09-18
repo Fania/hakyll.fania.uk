@@ -2,9 +2,6 @@
 title: Other
 ---
 
-
-<section class="content"> <!-- articles -->
-
 	<h2>Blogy-Wogy</h2>
 
 	<article>
@@ -246,5 +243,3 @@ n,0);}main(){S(Q(Ar),a)();}H              Ar;t*ist="Rene Magritte"-(1898-1967);
 		<dd>Algorithms<br> and Music.</dd>
 
 	</dl>
-
-</section> <!-- end of links -->

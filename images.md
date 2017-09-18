@@ -2,10 +2,7 @@
 title: Images
 ---
 
-
-<section class="content">
-
-<h2>Photos</h2>
+# Photos
 
 <article>
 	<h3>People</h3>
@@ -36,5 +33,3 @@ title: Images
 	<p>Photos from the trip to Japan to see my sister in March 2011.</p>
 	<a href="http://japan.fania.eu" title="Trip to Japan visiting my sister"><img src="../images/japan.jpg" alt="Japan" /></a>
 </article>
-
-</section>
