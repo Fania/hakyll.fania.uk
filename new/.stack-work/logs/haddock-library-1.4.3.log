@@ -34,5 +34,5 @@ vendor\attoparsec-0.12.1.1\Data\Attoparsec\ByteString\Internal.hs:139:14: warnin
 [16 of 17] Compiling Documentation.Haddock.Parser ( src\Documentation\Haddock\Parser.hs, .stack-work\dist\ca59d0ab\build\Documentation\Haddock\Parser.o )
 [17 of 17] Compiling Data.Attoparsec  ( vendor\attoparsec-0.12.1.1\Data\Attoparsec.hs, .stack-work\dist\ca59d0ab\build\Data\Attoparsec.o )
 Installing library in
-C:\sr\snapshots\e46bddb7\lib\x86_64-windows-ghc-8.0.2\haddock-library-1.4.3-JbTvLSEdh1LEWm8KMmBVQ
+C:\Users\Fania\AppData\Roaming\stack\snapshots\e46bddb7\lib\x86_64-windows-ghc-8.0.2\haddock-library-1.4.3-JbTvLSEdh1LEWm8KMmBVQ
 Registering haddock-library-1.4.3...

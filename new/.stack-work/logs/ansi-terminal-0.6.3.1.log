@@ -28,5 +28,5 @@ System\Console\ANSI\Windows\Emulator.hs:83:5: warning: [-Wunused-do-bind]
 [8 of 9] Compiling System.Console.ANSI.Windows ( System\Console\ANSI\Windows.hs, .stack-work\dist\ca59d0ab\build\System\Console\ANSI\Windows.o )
 [9 of 9] Compiling System.Console.ANSI ( System\Console\ANSI.hs, .stack-work\dist\ca59d0ab\build\System\Console\ANSI.o )
 Installing library in
-C:\sr\snapshots\e46bddb7\lib\x86_64-windows-ghc-8.0.2\ansi-terminal-0.6.3.1-CdiTOvx5ZEQ2RerUYIP05k
+C:\Users\Fania\AppData\Roaming\stack\snapshots\e46bddb7\lib\x86_64-windows-ghc-8.0.2\ansi-terminal-0.6.3.1-CdiTOvx5ZEQ2RerUYIP05k
 Registering ansi-terminal-0.6.3.1...
