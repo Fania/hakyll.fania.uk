@@ -47,7 +47,7 @@ nav img{
     
 main{
     margin:0 0 0 190px;
-    width:860px;
+    max-width:860px;
     overflow: hidden;}
 
 .postheader{
