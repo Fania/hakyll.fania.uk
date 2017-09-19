@@ -14,11 +14,25 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
+    match "index.html" $ do
+        route idRoute
+        compile $ do
+            posts <- recentFirst =<< loadAll "posts/*"
+            let indexCtx =
+                    listField "posts" postCtx (return posts) `mappend`
+                    constField "title" "Home"                `mappend`
+                    defaultContext
+            getResourceBody
+                >>= applyAsTemplate indexCtx
+                >>= loadAndApplyTemplate "templates/default.html" indexCtx
+                >>= relativizeUrls
+
     match (fromList ["about.md", "images.md", "contact.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
+
 
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
@@ -39,9 +53,7 @@ main = hakyll $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
-            
             >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
-            
             >>= relativizeUrls
 
     create ["stuff.html"] $ do
@@ -52,25 +64,9 @@ main = hakyll $ do
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Stuff"               `mappend`
                     defaultContext
-
             makeItem ""
                 >>= loadAndApplyTemplate "templates/stuff.html" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
-                >>= relativizeUrls
-
-
-    match "index.html" $ do
-        route idRoute
-        compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
-            let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Home"                `mappend`
-                    defaultContext
-
-            getResourceBody
-                >>= applyAsTemplate indexCtx
-                >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
 

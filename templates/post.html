@@ -1,12 +1,17 @@
 <article>
     <section class="postheader">
-        Posted on $date$
-        $if(author)$
-            by $author$
-        $endif$
-        $if(tags)$
-            Tags: $tags$
-        $endif$
+        <h1>$title$</h1>
+        <p>
+            Posted on $date$
+            $if(author)$
+                by $author$
+            $endif$
+        </p>
+        <p>
+            $if(tags)$
+                Tags: $tags$
+            $endif$
+        </p>
     </section>
     <section>
         $body$

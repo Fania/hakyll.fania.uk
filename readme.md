@@ -47,7 +47,10 @@ and have a look at your site at http://localhost:8000/.
 
 
 
+## IMPORTANT
 
+DO NOT USE '
+USE ` instead for apostrophes in text in markdown
 
 
 
