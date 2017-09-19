@@ -1,66 +1,37 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-
-$partial("templates/head.html")$
-<title>Fania - $title$</title>
-
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fania - $title$</title>
+    <link rel="stylesheet" href="/css/default.css" />
 </head>
-
 <body>
 
-<header id="header">
-	<h1><a href="index.html" class="logo">Fania.uk</a>
-    $if(icon)$
-      <span class="icon fa-$icon$">&nbsp;&nbsp;&nbsp;$title$</span>
-    $else$
-    	<span class="icon fa-heart">&nbsp;&nbsp;&nbsp;$title$</span>
-    $endif$
-	</h1>
-	<nav id="nav">
-		<ul>
-			<li><a href="index.html">Home</a></li>
-			<li><a href="uni.html">Uni</a></li>
-			<li><a href="other.html">Other</a></li>
-			<li><a href="images.html">Images</a></li>
-			<li><a href="about.html">About</a></li>
-		</ul>
-	</nav>
+<header>
+    <a href="./">
+        <img width="30" src="./images/loadspiral.gif" alt="spiral logo" />
+        Fania.uk
+    </a>
 </header>
+<nav>
+    <h1>$title$</h1>
+    <a href="/">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/stuff.html">Stuff</a>
+    <a href="/images.html">Images</a>
+    <a href="/contact.html">Contact</a>
+</nav>
 
-<article id="main">
+<main>
+    $body$
+</main>
 
-<header class="special container">
-	$if(icon)$
-		<span class="icon fa-$icon$"></span>
-	$else$
-		<span class="icon fa-heart"></span>
-	$endif$
-	$if(heading)$
-		<h2>$heading$</h2>
-	$else$
-		<h2>Hello</h2>
-	$endif$
-	$if(byline)$
-		<p>$byline$</p>
-	$else$
-		<p>Wie geht's?</p>
-	$endif$
-</header>
-
-<section class="wrapper style4 container">
-
-<div class="content">
-
-  $body$
-
-</div>
-</section>
-</article>
-
-$partial("templates/footer.html")$
+<footer>
+    &copy; Fania Raczinski - Absolu 145 - Generated using <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+</footer>
 
 </body>
-
 </html>

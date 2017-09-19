@@ -1,6 +1,3 @@
+.stack-work/
 _cache/
 _site/
-.DS_Store
-*.hi
-*.o
-*.exe

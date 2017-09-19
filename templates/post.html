@@ -1,8 +1,14 @@
-<div class="info">
-    Posted on $date$
-    $if(author)$
-        by $author$
-    $endif$
-</div>
-
-$body$
+<article>
+    <section class="postheader">
+        Posted on $date$
+        $if(author)$
+            by $author$
+        $endif$
+        $if(tags)$
+            Tags: $tags$
+        $endif$
+    </section>
+    <section>
+        $body$
+    </section>
+</article>
