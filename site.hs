@@ -2,8 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid
 import           Hakyll
-import           Data.Map as M (lookup)
-import           Data.Maybe
+-- import           Data.Map as M (lookup)
+-- import           Data.Maybe
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
@@ -18,10 +18,10 @@ main = hakyll $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- fmap (take 10) . recentFirst =<< loadAll "posts/*"
             let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Home"                `mappend`
+                    listField "posts" postCtx (return posts) <>
+                    constField "title" "Home"                <>
                     defaultContext
             getResourceBody
                 >>= applyAsTemplate indexCtx
@@ -42,9 +42,9 @@ main = hakyll $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll pattern
-            let ctx = constField "title" title
-                      `mappend` listField "posts" postCtx (return posts)
-                      `mappend` defaultContext
+            let ctx = constField "title" title <>
+                      listField "posts" postCtx (return posts) <>
+                      defaultContext
             makeItem ""
                 >>= loadAndApplyTemplate "templates/tag.html" ctx
                 >>= loadAndApplyTemplate "templates/default.html" ctx
@@ -62,8 +62,8 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let archiveCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Stuff"               `mappend`
+                    listField "posts" postCtx (return posts) <>
+                    constField "title" "Stuff"               <>
                     defaultContext
             makeItem ""
                 >>= loadAndApplyTemplate "templates/stuff.html" archiveCtx
@@ -78,18 +78,18 @@ main = hakyll $ do
 postCtx :: Context String
 postCtx =
     dateField "date" "%d.%m.%0Y" <>
-    mainImgCtx <>
+    -- mainImgCtx <>
     defaultContext
 
 postCtxWithTags :: Tags -> Context String
-postCtxWithTags tags = tagsField "tags" tags `mappend` postCtx
+postCtxWithTags tags = tagsField "tags" tags <> postCtx
 
-mainImgCtx :: Context String 
-mainImgCtx = 
-  field "cover" $ \item -> do
-      identifier <- getUnderlying 
-      metadata <- getMetadata (itemIdentifier item)
-      return $ fromMaybe "blank.png" $ M.lookup "cover" metadata
+-- mainImgCtx :: Context String 
+-- mainImgCtx = 
+--   field "cover" $ \item -> do
+--       identifier <- getUnderlying 
+--       metadata <- getMetadata (itemIdentifier item)
+--       return $ fromMaybe "blank.png" $ M.lookup "cover" metadata
 --------------------------------------------------------------------------------
 
 -- faniaconfig :: Configuration
