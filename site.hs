@@ -1,8 +1,9 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
+import           Data.Monoid
 import           Hakyll
-
+import           Data.Map as M (lookup)
+import           Data.Maybe
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
@@ -76,13 +77,19 @@ main = hakyll $ do
 --------------------------------------------------------------------------------
 postCtx :: Context String
 postCtx =
-    dateField "date" "%B %e, %Y" `mappend`
+    dateField "date" "%d.%m.%0Y" <>
+    mainImgCtx <>
     defaultContext
 
 postCtxWithTags :: Tags -> Context String
 postCtxWithTags tags = tagsField "tags" tags `mappend` postCtx
 
-
+mainImgCtx :: Context String 
+mainImgCtx = 
+  field "cover" $ \item -> do
+      identifier <- getUnderlying 
+      metadata <- getMetadata (itemIdentifier item)
+      return $ fromMaybe "blank.png" $ M.lookup "cover" metadata
 --------------------------------------------------------------------------------
 
 -- faniaconfig :: Configuration

@@ -46,9 +46,12 @@ nav img{
     margin:0px}
     
 main{
-    margin:0 0 0 190px;
+    margin:0 50px 0 190px;
     max-width:860px;
     overflow:hidden}
+
+main img{
+    width:100%;}
     
 .postheader{
     margin-top:10px}
@@ -76,10 +79,11 @@ h1{
 
 h2{
     font-size:18px;
-    margin:12px 0px 12px 0px}
+    margin:20px 0px 12px 0px}
     
 h3{
-    font-size:16px}
+    font-size:16px;
+    margin:20px 0px 12px 0px}
     
 h1,h2,h3{
     text-transform:uppercase;
@@ -91,7 +95,8 @@ h1 a,h2 a,h3 a{
 img{
     border:none;
     display:block;
-    margin:6px auto 30px auto}
+    margin:6px auto 30px auto;}
+
     
 ul{
     list-style-type:square;
@@ -111,3 +116,16 @@ pre code{
     
 p.caption{
     display:none}
+
+hr{ 
+    background: url('../images/triplespiral.png') no-repeat top center;
+    background-size: contain;
+    display: block;
+    height: 30px;
+    margin:30px 0;
+    border: 0;
+    position: relative;}
+
+.halfwidth{
+    width:50%;
+    display:inline;}
