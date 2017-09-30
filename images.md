@@ -2,12 +2,10 @@
 title: Images
 ---
 
-# Photos
+# Galleries
 
-| | |
-|-|-|
-| People | [People](http://gallery.fania.eu) |
-| Stockholm | [Stockholm](http://stockholm.fania.eu) |
-| Iceland | [Iceland](http://iceland.fania.eu) |
-| Sydney | [Sydney](http://sydney.fania.eu) |
-| Japan | [Japan](http://japan.fania.eu) |
+[People](http://gallery.fania.eu)
+[Stockholm](http://stockholm.fania.eu)
+[Iceland](http://iceland.fania.eu)
+[Sydney](http://sydney.fania.eu)
+[Japan](http://japan.fania.eu)
