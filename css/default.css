@@ -1,142 +1,207 @@
-html{
-    background-color:white;
-    color:black;
-    font-family:sans-serif;
-    line-height:140%;
-    margin:0px;
-    padding:0px}
+html {
+    background-color: white;
+    color: black;
+    font-family: sans-serif;
+    line-height: 140%;
+    margin: 0px;
+    padding: 0px;
+}
     
-body{
-    padding:0px 0px 60px 0px;
-    margin:0px}
+body {
+    padding: 0px 0px 60px 0px;
+    margin: 0px;
+}
     
-header{
-    font-size:28px;
-    font-weight:bold;
-    height:32px;
-    line-height:32px;
-    margin:30px 0 20px 128px;
-    text-transform:uppercase}
+header {
+    font-size: 28px;
+    font-weight: bold;
+    height: 32px;
+    line-height: 32px;
+    margin: 30px 0 20px 128px;
+    text-transform: uppercase;
+}
     
-header img{
-    float:left;
-    margin:0px 30px 0px 0px}
+header img {
+    float: left;
+    margin: 0px 30px 0px 0px;
+}
     
-header a{
-    text-decoration:none}
+header a {
+    text-decoration: none;
+}
     
-nav{
-    margin-right:30px;
-    width:160px;
-    float:left}
+nav {
+    margin-right: 30px;
+    width: 160px;
+    float: left;
+}
     
-nav h1{
-    clear:both;
-    float:right}
+nav h1 {
+    clear: both;
+    float: right;
+}
     
-nav a{
-    clear:both;
-    display:block;
-    float:right;
-    margin-bottom:10px;
-    text-decoration:none;
-    text-transform:uppercase}
+nav a {
+    clear: both;
+    display: block;
+    float: right;
+    margin-bottom: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
     
-nav img{
-    margin:0px}
+nav img {
+    margin: 0px;
+}
     
-main{
-    margin:0 50px 0 190px;
-    max-width:860px;
-    overflow:hidden}
+main {
+    margin: 0 50px 0 190px;
+    max-width: 860px;
+    overflow: hidden;
+}
 
-main img{
-    width:100%;}
+main img {
+    width: 100%;
+}
     
-.postheader{
-    margin-top:10px}
+.postheader {
+    margin-top: 10px;
+}
     
-footer{
-    margin:30px 0 0 190px;
-    max-width:860px;
-    clear:both;
-    font-size:90%;
-    color:#C5C5C5}
+footer {
+    margin: 30px 0 0 190px;
+    max-width: 860px;
+    clear: both;
+    font-size: 90%;
+    color: #C5C5C5;
+}
 
-footer a{
-    color:#C5C5C5}
+footer a {
+    color: #C5C5C5;
+}
     
-p{
-    padding:0px;
-    margin:10px 0px 10px 0px}
+p {
+    padding: 0px;
+    margin: 10px 0px 10px 0px;
+}
     
-a{
-    color:black}
+a {
+    color: black;
+}
     
-h1{
-    font-size:20px;
-    margin:12px 0px 12px 0px}
+h1 {
+    font-size: 20px;
+    margin: 12px 0px 12px 0px;
+}
 
-h2{
-    font-size:18px;
-    margin:20px 0px 12px 0px}
+h2 {
+    font-size: 18px;
+    margin: 20px 0px 12px 0px;
+}
     
-h3{
-    font-size:16px;
-    margin:20px 0px 12px 0px}
+h3 {
+    font-size: 16px;
+    margin: 20px 0px 12px 0px;
+}
     
-h1,h2,h3{
-    text-transform:uppercase;
-    font-weight:bold}
+h1,h2,h3 {
+    text-transform: uppercase;
+    font-weight: bold;
+}
     
-h1 a,h2 a,h3 a{
-    text-decoration:none}
+h1 a,h2 a,h3 a {
+    text-decoration: none;
+}
     
-img{
-    border:none;
-    display:block;
-    margin:6px auto 30px auto;}
+img {
+    border: none;
+    display: block;
+    margin: 6px auto 30px auto;
+}
 
-.fa{
-color:#154360;}
+.fa {
+color: #154360;
+}
     
-ul{
-    list-style-type:square;
-    padding-left:1em;
-    margin-left:1em}
+ul {
+    list-style-type: square;
+    padding-left: 1em;
+    margin-left: 1em;
+}
 
-.nobullets{
-    list-style-type:none;}
+.nobullets {
+    list-style-type: none;
+}
 
-.nobullets li{
-    display: inline-block;} 
+.nobullets li {
+    display: inline-block;
+} 
 
-.nobullets img{
-    width:150px;}
+.nobullets img {
+    width: 150px;
+}
     
-code{
-    background-color:rgb(250,250,250);
-    border:1px solid rgb(200,200,200);
-    padding-left:4px;
-    padding-right:4px}
+code {
+    background-color: rgb(250,250,250);
+    border: 1px solid rgb(200,200,200);
+    padding-left: 4px;
+    padding-right: 4px;
+}
     
-pre code{
-    display:block;
-    padding:8px;
-    margin-bottom:2em}
+pre code {
+    display: block;
+    padding: 8px;
+    margin-bottom: 2em;
+}
     
-p.caption{
-    display:none}
+p.caption {
+    display: none;
+}
 
-hr{ 
+hr { 
     background: url('../images/triplespiral.png') no-repeat top center;
     background-size: contain;
     display: block;
     height: 30px;
     margin:30px 0;
     border: 0;
-    position: relative;}
+    position: relative;
+}
 
-.halfwidth{
-    width:50%;
-    display:inline;}
+.halfwidth {
+    width: 50%;
+    display: inline;
+}
+
+
+@media only screen and (max-width:  500px)  {
+    header {
+        margin: 30px 0 20px 10px;
+    
+    }
+    header img {
+        margin: 0px 30px 0px 10px;
+    }
+    nav {
+        width: 100%;
+        float: none;
+        margin: 0 10px;
+        text-align: center;
+    }
+    nav a {
+        display: inline-block;
+        float: none;
+    }
+    nav h1 {
+        display: none;
+    }
+    nav img {
+        margin: 0;
+    }
+    main {
+        margin: 0 10px;
+    }
+    footer {
+        margin: 0 10px;
+    }
+}
