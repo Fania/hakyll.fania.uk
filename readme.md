@@ -20,6 +20,7 @@ Alt + 0148 produces a closing double curly quote ( ” )
 If you made changes to site.hs, you need to recompile site.hs followed by a rebuild:
 
 ```
+stack clean
 stack build
 stack exec site rebuild
 ```

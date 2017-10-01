@@ -18,7 +18,7 @@ main = hakyll $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- fmap (take 3) . recentFirst =<< loadAll "posts/*"
+            posts <- fmap (take 6) . recentFirst =<< loadAll "posts/*"
             let indexCtx =
                     listField "posts" postCtx (return posts) <>
                     constField "title" "Home"                <>
@@ -28,7 +28,7 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
-    match (fromList ["about.md", "images.md", "links.md", "contact.md"]) $ do
+    match (fromList ["about.md", "images.md", "links.md", "cheats.md", "contact.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
