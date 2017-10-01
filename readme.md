@@ -12,6 +12,11 @@ Alt + 0148 produces a closing double curly quote ( ” )
 alt + 0133	Three dots
 
 
+<i class="fa fa-apple"></i>
+<i class="fa fa-windows"></i>
+<i class="fa fa-linux"></i>
+
+
 ## Recompiling
 
 ```stack exec site build```

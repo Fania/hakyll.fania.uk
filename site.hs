@@ -28,12 +28,11 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
-    match (fromList ["about.md", "images.md", "links.md", "cheats.md", "contact.md"]) $ do
+    match (fromList ["about.md", "images.md", "links.md", "contact.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
-
 
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
@@ -70,6 +69,38 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
+    -- create ["haskell.html"] $ do
+    --     route idRoute
+    --     compile $ do
+    --         posts <- recentFirst =<< loadAll "posts/*"
+    --         let archiveCtx =
+    --                 listField "posts" postCtx (return posts) <>
+    --                 constField "title" "Stuff"               <>
+    --                 defaultContext
+    --         makeItem ""
+    --             >>= loadAndApplyTemplate "templates/maths.html" archiveCtx
+    --             -- >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+    --             >>= relativizeUrls
+
+    match "solutions/*" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/post.html" postCtx
+            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= relativizeUrls
+
+    create ["cheats.html"] $ do
+        route idRoute
+        compile $ do
+            solutions <- recentFirst =<< loadAll "solutions/*"
+            let archiveCtx =
+                    listField "solutions" postCtx (return solutions) <>
+                    constField "title" "Solutions Log"                    <>
+                    defaultContext
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/cheats.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                >>= relativizeUrls
 
     match "templates/*" $ compile templateBodyCompiler
 
