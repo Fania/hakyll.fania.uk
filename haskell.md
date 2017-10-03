@@ -16,21 +16,27 @@ head: "<script type='text/javascript' async
 # Haskell FAQ
 
 
+
 TOC HERE
 
+TOC TEST
+--------
 
 ## Setup Stuff
 
 ### How do I open GHCi?
+
 Just open a terminal window and simply type `ghci` to open the Glasgow Haskell Compiler in interactive mode.
 
 In the computer labs in the Gateway building you need to log into Linux where Haskell is already installed. If you want to install Haskell on your laptop or home computer you can download it [here](https://www.haskell.org/). Alternatively, if you just quickly want to try an expression but don’t have Haskell installed on your computer at home, you can use the interactive prompt on [haskell.org](https://www.haskell.org/) or [tryhaskell.org](http://tryhaskell.org/). There is even an app for iOS devices ([Raskell](http://slidetocode.com/raskell)). **Let me know if you find a good app for Android!**
 
 
 ### What’s the point of `:set +t`?
+
 Setting this will show the type of any value returned. It is optional but useful. You will have to set this every time you restart GHCi. Don’t forget to type the `:` at the start of the expression. In some of the examples throughout the lab sessions you will encounter instructions telling you to type `:s +t` which might not work on your machine. Use `:set +t` instead.
 
 ### Setting up your GHCi config file
+
 You may want to setup a config file on your profile which can save you typing out certain commands every time you start a new session. For example you can put the `:set +t` command into this file and you will never have to remember it again.
 
 To do this, open your home folder on Linux and enable the viewing of hidden files. Find the `.ghc` folder. You need to create a new file called `ghci.conf` within that folder. Now, open this file and simply type in `:set +t` and save.
@@ -66,13 +72,16 @@ An example `ghci.conf` file can look like this:
 ```
 
 ### Some other useful commands for GHCi
+
 - `:quit` or `:q` to leave your current GHCi session
 - `:! clear` to clear your terminal window within an GHCi session
 
 ### Hoogle
+
 Don’t forget you can check what functions do in [Hoogle](https://www.haskell.org/hoogle/?hoogle=floor): floor. For example, you can also search for functions by their type declarations: `String -> Int` [Hoogle: String -> Int](https://www.haskell.org/hoogle/?hoogle=String+-%3E+Int).
 
 ### How do I load scripts into GHCi?
+
 Once you have typed a few expressions into a text editor of your choice and saved the file with an `.hs` extension, you can load it into GHCi.
 
 First you need to make sure your terminal prompt is in the right directory. Use the `cd` command to enter the folder where you saved the Haskell script. So, if you called your file `Script101.hs` and saved it in a folder called `CTEC1901` within your home directory, you need to enter the following commands into your terminal prompt: `cd CTEC1901`, then `ghci` and then `:load Script101.hs`.
@@ -92,6 +101,7 @@ Prelude> :load Script101.hs
 - You don’t have to type the file extension `.hs`
 
 ### How do I use script files and functions?
+
 Let’s assume you have a script file which contains the following code:
 
 ```
@@ -130,12 +140,15 @@ Note that the first line in your script `add :: (Int, Int) -> Int` tells you whi
 ## Intro to Expressions
 
 ### Div and mod aren’t working?
+
 The expressions ``x `div` y`` and ``x `mod` y`` need **backwards quotes** (left of the ‘1’ key on the keyboard). Note that the above notation is just syntactic sugar for `div x y` and `mod x y` - you can interchange them as you like.
 
 ### What do `floor` and `ceiling` do?
+
 `floor x` returns the greatest integer not greater than x and similarly, `ceiling x` returns the least integer not less than x. So `floor 1.4` will return `1` and `ceiling 1.4` will return `2`. This is different from rounding!
 
 ### How does `1 + if 2==2 then 3 else 4` work?
+
 The `if` statement automatically takes precedence over the addition:
 
 ```
@@ -149,9 +162,11 @@ The `if` statement automatically takes precedence over the addition:
 ```
 
 ### How does `(if 2/=2 then reverse else tail) "abc"` work?
+
 Here, the `if` statement determines which function to apply to the string `"abc"`. Since 2 is ***not*** not equal to 2, it’s `False` and the function performs `tail "abc"` and returns `"bc"`.
 
 ### Why does `two * length name` produce an error?
+
 In this particular example, the variable `two` is defined as `2` in your script which Haskell interprets as having type `Integer`. You can test this by using the `:type` or `:t` command: 
 
 ```
@@ -191,6 +206,7 @@ it:: Int
 See page 64 of David Smallwoods [tutorial file](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=72). The following examples are taken from [wunki.org](https://wunki.org/posts/2011-10-04-currying-and-partial-application.html)
 
 ### Curried and uncurried functions
+
 **Uncurried** function:
 
 ```
@@ -208,6 +224,7 @@ fooC x y = x * y
 The main difference *in very simple terms* is that the function parameters `x` and `y` are given separately in curried functions compared to a tuple in uncurried functions `(x,y)`.
 
 ### Anonymous / Lamda functions
+
 Lamda functions are sometimes called anonymous functions because they are not given a name.
 
 ```

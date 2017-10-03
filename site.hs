@@ -4,7 +4,25 @@ import           Data.Monoid
 import           Hakyll
 -- import           Data.Map as M (lookup)
 -- import           Data.Maybe
+import qualified Data.Set as S
+import           Hakyll.Web.Pandoc
+import           Text.Pandoc.Options
+
 --------------------------------------------------------------------------------
+
+myPandocCompiler = 
+    let writerOps = defaultHakyllWriterOptions
+                    { writerTableOfContents = True
+                    -- , writerTemplate = "$if(toc)$\n$toc$\n$endif$\n$body$"
+                    , writerTemplate = Just "$toc$\n$body$"
+                    , writerHighlight  = True
+                    -- , writerTOCDepth = 3
+                    -- , writerHighlightStyle = Style,
+                    , writerExtensions = S.insert Ext_literate_haskell (writerExtensions def)
+                    -- , writerHtml5 = True
+                    } 
+    in pandocCompilerWith defaultHakyllReaderOptions writerOps
+
 main :: IO ()
 main = hakyll $ do
     match "images/*" $ do
@@ -33,6 +51,13 @@ main = hakyll $ do
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
+
+    match "haskell.md" $ do
+        route   $ setExtension "html"
+        compile $ myPandocCompiler
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
+
 
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
