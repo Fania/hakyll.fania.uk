@@ -113,7 +113,7 @@ h3 {
     margin: 20px 0px 12px 0px;
 }
     
-h1,h2,h3 {
+h1,h2 {
     text-transform: uppercase;
     font-weight: bold;
 }
@@ -185,6 +185,68 @@ hr {
     width: 50%;
     display: inline;
 }
+
+
+/* FAQ hide show */
+/* input {
+    visibility: hidden;
+  }
+  
+  input[type=checkbox]:checked + label + div {
+    transition: all 0.3s;
+    height: auto;
+    opacity: 1;
+    margin: 1em 0;
+    padding: 1em;
+  }
+  
+  input[type=checkbox]:checked + label + div p {
+    height: auto;
+    opacity: 1;
+  }
+  
+  input::before {
+    font-family: FontAwesome;
+    content: "\f0fe";
+    color: #b5cce3;
+    visibility: visible;
+  }
+  
+  input[type=checkbox]:checked::before {
+    content: "\f146";
+  }
+  
+  label {
+    display: inline-block;
+  }
+  
+  .textentry {
+    padding: 1em;
+    background-color: rgba( 70, 59, 68, 0.4);
+  }
+  
+  .answer{
+    margin: 0;
+    padding: 0 1em;
+    background-color: rgba( 70, 59, 68, 0.4);
+  }
+  
+  .answer,
+  .answer p {
+    height: 0;
+    opacity: 0;
+    transition: all 0.2s;
+    overflow: hidden;
+  }
+  
+  p:first-child {
+    margin-top: 0;
+  }
+  
+  p:last-child {
+    margin-bottom: 0;
+  } */
+/* FAQ hide show END */
 
 
 @media only screen and (max-width:  500px)  {
