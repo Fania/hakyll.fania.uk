@@ -1,5 +1,5 @@
 ---
-title: Haskell
+title: Haskell FAQ
 date: 2017-10-03
 head: "<script type='text/javascript' async
       src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML'></script>
@@ -12,15 +12,6 @@ head: "<script type='text/javascript' async
                         });
       </script>"
 ---
-
-# Haskell FAQ
-
-
-
-TOC HERE
-
-TOC TEST
---------
 
 ## Setup Stuff
 
@@ -264,10 +255,3 @@ and:
 addSeven y = sumTwo 7 y
 ```
 
-
-test
---------
-
-
-test 2 
-------------

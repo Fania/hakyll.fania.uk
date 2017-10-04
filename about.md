@@ -1,8 +1,6 @@
 ---
-title: About
+title: About me
 ---
-
-# About me
 
 ### Current
 

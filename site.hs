@@ -38,27 +38,28 @@ main = hakyll $ do
         compile compressCssCompiler
 
     -- Index
-    match "index.md" $ do
-        route $ setExtension "html"
-        compile $ pandocCompiler
-            -- posts <- fmap (take 6) . recentFirst =<< loadAll "posts/*"
-            -- let indexCtx =
-            --         listField "posts" postCtx (return posts) <>
-            --         constField "title" "Home"                <>
-            --         defaultContext
-            -- >>= applyAsTemplate indexCtx
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
+    create ["index.html"] $ do
+        route idRoute
+        compile $ do
+            posts <- fmap (take 6) . recentFirst =<< loadAll "posts/*"
+            let indexCtx =
+                    listField "posts" postCtx (return posts) <>
+                    defaultContext
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/index.html" indexCtx
+                >>= loadAndApplyTemplate "templates/default.html" indexCtx
+                >>= relativizeUrls
 
-    -- Haskell
-    match "haskell.md" $ do
+    -- About and Haskell pages with TOC
+    match (fromList ["about.md", "haskell.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompilerWith defaultHakyllReaderOptions withToc
+            >>= loadAndApplyTemplate "templates/withTOC.html" defaultContext
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
-    -- Other pages
-    match (fromList ["about.md", "images.md", "links.md", "contact.md"]) $ do
+    -- Other pages without TOC
+    match (fromList ["images.md", "links.md", "contact.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
@@ -67,6 +68,7 @@ main = hakyll $ do
     -- Tags
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
+    -- Tag pages
     tagsRules tags $ \tag pattern -> do
         let title = "Posts tagged \"" ++ tag ++ "\""
         route idRoute
