@@ -7,6 +7,7 @@ import           Hakyll
 import qualified Data.Set as S
 import           Hakyll.Web.Pandoc
 import           Text.Pandoc.Options
+import           Text.Pandoc
 
 --------------------------------------------------------------------------------
 
@@ -25,40 +26,45 @@ myPandocCompiler =
 
 main :: IO ()
 main = hakyll $ do
+
+    -- Static folder
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
-
+    
+    -- CSS
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
 
-    match "index.html" $ do
-        route idRoute
-        compile $ do
-            posts <- fmap (take 6) . recentFirst =<< loadAll "posts/*"
-            let indexCtx =
-                    listField "posts" postCtx (return posts) <>
-                    constField "title" "Home"                <>
-                    defaultContext
-            getResourceBody
-                >>= applyAsTemplate indexCtx
-                >>= loadAndApplyTemplate "templates/default.html" indexCtx
-                >>= relativizeUrls
+    -- Index
+    match "index.md" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+            -- posts <- fmap (take 6) . recentFirst =<< loadAll "posts/*"
+            -- let indexCtx =
+            --         listField "posts" postCtx (return posts) <>
+            --         constField "title" "Home"                <>
+            --         defaultContext
+            -- >>= applyAsTemplate indexCtx
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
 
-    match (fromList ["about.md", "images.md", "links.md", "haskell.md", "contact.md"]) $ do
+    -- Haskell
+    match "haskell.md" $ do
+        route   $ setExtension "html"
+        compile $ pandocCompilerWith defaultHakyllReaderOptions withToc
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
+
+    -- Other pages
+    match (fromList ["about.md", "images.md", "links.md", "contact.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
-    match "haskell.md" $ do
-        route   $ setExtension "html"
-        compile $ myPandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
-
-
+    -- Tags
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
     tagsRules tags $ \tag pattern -> do
@@ -74,6 +80,7 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
 
+    -- Individual posts
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
@@ -81,6 +88,7 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
             >>= relativizeUrls
 
+    -- Posts main page
     create ["stuff.html"] $ do
         route idRoute
         compile $ do
@@ -94,19 +102,7 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-    -- create ["haskell.html"] $ do
-    --     route idRoute
-    --     compile $ do
-    --         posts <- recentFirst =<< loadAll "posts/*"
-    --         let archiveCtx =
-    --                 listField "posts" postCtx (return posts) <>
-    --                 constField "title" "Stuff"               <>
-    --                 defaultContext
-    --         makeItem ""
-    --             >>= loadAndApplyTemplate "templates/maths.html" archiveCtx
-    --             -- >>= loadAndApplyTemplate "templates/default.html" archiveCtx
-    --             >>= relativizeUrls
-
+    -- Individual solutions
     match "solutions/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
@@ -114,6 +110,7 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
+    -- Solutions main page
     create ["cheats.html"] $ do
         route idRoute
         compile $ do
@@ -127,10 +124,30 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-    match "templates/*" $ compile templateBodyCompiler
-
+    -- Templates
+    match "templates/*" $ compile templateCompiler
+  where
+    withToc = defaultHakyllWriterOptions
+        { writerTableOfContents = True
+        , writerTemplate        = Just "$toc$\n$body$"
+        }
 
 --------------------------------------------------------------------------------
+
+-- indexCtx :: Context String
+-- indexCtx =
+--     listField "posts" postCtx (return posts) <>
+--     constField "title" "Home"                <>
+--     defaultContext
+
+-- archiveCtx :: Context String
+-- archiveCtx =
+--     listField "posts" postCtx (return posts) <>
+--     constField "title" "Stuff"               <>
+--     defaultContext
+--     where
+--         posts = recentFirst =<< loadAll "posts/*"
+
 postCtx :: Context String
 postCtx =
     dateField "date" "%d.%m.%0Y" <>
@@ -139,6 +156,14 @@ postCtx =
 
 postCtxWithTags :: Tags -> Context String
 postCtxWithTags tags = tagsField "tags" tags <> postCtx
+
+-- solutionsCtx :: Context String
+-- solutionsCtx =
+--     listField "solutions" postCtx (return solutions) <>
+--     constField "title" "Solutions Log"                    <>
+--     defaultContext
+--     where
+--         solutions = recentFirst =<< loadAll "solutions/*"
 
 -- mainImgCtx :: Context String 
 -- mainImgCtx = 

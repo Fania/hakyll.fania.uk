@@ -1,4 +1,8 @@
-<h1>Smile and Wave</h1>
+---
+title: Home
+---
+
+# Smile and Wave
 
 $partial("templates/post-list-imgs.html")$
 
