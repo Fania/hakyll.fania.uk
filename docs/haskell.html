@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fania - Haskell FAQ</title>
+    <link rel="stylesheet" href="./css/default.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+     <link rel="stylesheet" href="./css/pandoc.css" /> <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script> <script type="text/x-mathjax-config"> MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}, TeX:     {extensions: ['color.js'], Macros:     {RR:    '{\bf R}', bold:  ['{\bf #1}', 1]} } }); </script> 
+</head>
+<body>
+
+<header>
+    <a href="../">
+        <img width="30" src="../images/loadspiral.gif" alt="spiral logo" />
+        Fania.eu
+    </a>
+</header>
+<nav>
+    <h1><a href="./">Home</a></h1>
+    <a href="./about.html">About</a>
+    <a href="./stuff.html">Stuff</a>
+    <a href="./images.html">Images</a>
+    <a href="./links.html">Links</a>
+    <a href="./haskell.html">Haskell</a>
+    <a href="./contact.html">Contact</a>
+</nav>
+
+<main>
+    <h1>Haskell FAQ</h1>
+
+<ul>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#expressions">Expressions</a></li>
+<li><a href="#curry-lamda-and-sections">Curry, Lamda and Sections</a></li>
+<li><a href="#tuples-and-lists">Tuples and Lists</a></li>
+<li><a href="#types-polymorphism-and-order-of-execution">Types, Polymorphism and Order of Execution</a></li>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#list-comprehensions">List comprehensions</a></li>
+<li><a href="#guards-and-map">Guards and map</a></li>
+</ul>
+<h2 id="setup">Setup</h2>
+<h3 id="how-do-i-open-ghci">How do I open GHCi?</h3>
+<p>Just open a terminal window and simply type <code>ghci</code> to open the Glasgow Haskell Compiler in interactive mode.</p>
+<p>In the computer labs in the Gateway building you need to log into Linux where Haskell is already installed. If you want to install Haskell on your laptop or home computer you can download it <a href="https://www.haskell.org/">here</a>. Alternatively, if you just quickly want to try an expression but don’t have Haskell installed on your computer at home, you can use the interactive prompt on <a href="https://www.haskell.org/">haskell.org</a> or <a href="http://tryhaskell.org/">tryhaskell.org</a>. There is even an app for iOS devices (<a href="http://slidetocode.com/raskell">Raskell</a>). <strong>Let me know if you find a good app for Android!</strong></p>
+<h3 id="what���s-the-point-of-set-t">What’s the point of <code>:set +t</code>?</h3>
+<p>Setting this will show the type of any value returned. It is optional but useful. You will have to set this every time you restart GHCi. Don’t forget to type the <code>:</code> at the start of the expression. In some of the examples throughout the lab sessions you will encounter instructions telling you to type <code>:s +t</code> which might not work on your machine. Use <code>:set +t</code> instead.</p>
+<h3 id="setting-up-your-ghci-config-file">Setting up your GHCi config file</h3>
+<p>You may want to setup a config file on your profile which can save you typing out certain commands every time you start a new session. For example you can put the <code>:set +t</code> command into this file and you will never have to remember it again.</p>
+<p>To do this, open your home folder on Linux and enable the viewing of hidden files. Find the <code>.ghc</code> folder. You need to create a new file called <code>ghci.conf</code> within that folder. Now, open this file and simply type in <code>:set +t</code> and save.</p>
+<p>There are various other things you can do with this config file. For example you can change the prompt from <code>Prelude&gt;</code> to your name or the Haskell “logo” lambda (<code>λ</code>) using this command: <code>:set prompt &quot;λ&gt;&quot;</code>.</p>
+<p>If you have installed GHC on your laptop or home computer you may have noticed that <code>:set +t</code> produces slightly different results than on the Gateway Linux lab machines. This is due to the version you are using.</p>
+<p>In the labs (which use version 7.4.1) you would see something like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">6</span>
+<span class="dv">10</span>
+<span class="ot">it ::</span> <span class="dt">Integer</span></code></pre></div>
+<p>If you installed the newest version of GHC (7.10.3) then you will see this instead:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dv">4</span> <span class="fu">+</span> <span class="dv">6</span>
+<span class="dv">10</span>
+<span class="ot">it ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a</code></pre></div>
+<p>Right now this might not mean much to you, so you can change this setting in your <code>ghci.conf</code> file (see above) by adding this command: <code>:set -XMonomorphismRestriction</code>. To change it back to what it was before change the command to: <code>:set -XNoMonomorphismRestriction</code>.</p>
+<p>An example <code>ghci.conf</code> file can look like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">:</span>set <span class="fu">+</span>t
+<span class="fu">:</span>set <span class="fu">-</span><span class="dt">XMonomorphismRestriction</span>
+<span class="fu">:</span>set prompt <span class="st">&quot;λ&gt; &quot;</span></code></pre></div>
+<h3 id="some-other-useful-commands-for-ghci">Some other useful commands for GHCi</h3>
+<ul>
+<li><code>:quit</code> or <code>:q</code> to leave your current GHCi session</li>
+<li><code>:! clear</code> to clear your terminal window within an GHCi session</li>
+</ul>
+<h3 id="hoogle">Hoogle</h3>
+<p>Don’t forget you can check what functions do in <a href="https://www.haskell.org/hoogle/?hoogle=floor">Hoogle</a>: floor. For example, you can also search for functions by their type declarations: <code>String -&gt; Int</code> <a href="https://www.haskell.org/hoogle/?hoogle=String+-%3E+Int">Hoogle: String -&gt; Int</a>.</p>
+<h3 id="how-do-i-load-scripts-into-ghci">How do I load scripts into GHCi?</h3>
+<p>Once you have typed a few expressions into a text editor of your choice and saved the file with an <code>.hs</code> extension, you can load it into GHCi.</p>
+<p>First you need to make sure your terminal prompt is in the right directory. Use the <code>cd</code> command to enter the folder where you saved the Haskell script. So, if you called your file <code>Script101.hs</code> and saved it in a folder called <code>CTEC1901</code> within your home directory, you need to enter the following commands into your terminal prompt: <code>cd CTEC1901</code>, then <code>ghci</code> and then <code>:load Script101.hs</code>.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">~</span>$ <span class="bu">cd</span> CTEC1901
+<span class="ex">~/CTEC1901</span>$ <span class="ex">ghci</span>
+<span class="ex">Prelude</span><span class="op">&gt;</span> :load Script101.hs
+<span class="ex">*Main</span><span class="op">&gt;</span></code></pre></div>
+<ul>
+<li>Script names are case sensitive!</li>
+<li><code>:reload</code> or <code>:r</code> to reload a script</li>
+<li><code>:load</code> or <code>:l</code> to load a script</li>
+<li>You need to be in the correct directory</li>
+<li><code>:cd</code> to change directory within GHCi</li>
+<li>You don’t have to type the file extension <code>.hs</code></li>
+</ul>
+<h3 id="how-do-i-use-script-files-and-functions">How do I use script files and functions?</h3>
+<p>Let’s assume you have a script file which contains the following code:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">add x y <span class="fu">=</span> x <span class="fu">+</span> y</code></pre></div>
+<p>You can call this function in GHCi by loading the script and then typing:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">add <span class="dv">4</span> <span class="dv">6</span></code></pre></div>
+<p>which should then return:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">10</span>
+<span class="ot">it ::</span> <span class="dt">Integer</span></code></pre></div>
+<p>Similarly if your file contained the following code:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">add ::</span> (<span class="dt">Int</span>, <span class="dt">Int</span>) <span class="ot">-&gt;</span> <span class="dt">Int</span>
+add (x,y) <span class="fu">=</span> x <span class="fu">+</span> y</code></pre></div>
+<p>Then you need to type the following to call the function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">add (<span class="dv">4</span>,<span class="dv">6</span>)</code></pre></div>
+<p>Note that the first line in your script <code>add :: (Int, Int) -&gt; Int</code> tells you which types of values you need to pass to the function as parameters. In this case the left hand side (before the <code>::</code>) tells you that the function is called <code>add</code> and the right hand side tells you that the function takes a <strong>tuple</strong> of two Integers <code>(Int, Int)</code> as input (before the <code>-&gt;</code>) and that the output of the function is an <code>Int</code> (after the <code>-&gt;</code>).</p>
+<p><a href="#">back up</a></p>
+<hr />
+<h2 id="expressions">Expressions</h2>
+<h3 id="div-and-mod-aren���t-working">Div and mod aren’t working?</h3>
+<p>The expressions <code>x `div` y</code> and <code>x `mod` y</code> need <strong>backwards quotes</strong> (left of the ‘1’ key on the keyboard). Note that the above notation is just syntactic sugar for <code>div x y</code> and <code>mod x y</code> - you can interchange them as you like.</p>
+<h3 id="what-do-floor-and-ceiling-do">What do <code>floor</code> and <code>ceiling</code> do?</h3>
+<p><code>floor x</code> returns the greatest integer not greater than x and similarly, <code>ceiling x</code> returns the least integer not less than x. So <code>floor 1.4</code> will return <code>1</code> and <code>ceiling 1.4</code> will return <code>2</code>. This is different from rounding!</p>
+<h3 id="how-does-1-if-22-then-3-else-4-work">How does <code>1 + if 2==2 then 3 else 4</code> work?</h3>
+<p>The <code>if</code> statement automatically takes precedence over the addition:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dv">1</span> <span class="fu">+</span> <span class="kw">if</span> <span class="dv">2</span> <span class="fu">==</span> <span class="dv">2</span> <span class="kw">then</span> <span class="dv">3</span> <span class="kw">else</span> <span class="dv">4</span>
+<span class="dv">1</span> <span class="fu">+</span> ( <span class="kw">if</span> <span class="dv">2</span> <span class="fu">==</span> <span class="dv">2</span> <span class="kw">then</span> <span class="dv">3</span> <span class="kw">else</span> <span class="dv">4</span> )
+<span class="dv">1</span> <span class="fu">+</span> ( <span class="kw">if</span> <span class="dt">True</span> <span class="kw">then</span> <span class="dv">3</span> <span class="kw">else</span> <span class="dv">4</span> ) 
+<span class="co">-- 2 == 2 is True so we enter the `then` statement</span>
+<span class="dv">1</span> <span class="fu">+</span> ( <span class="dv">3</span> )
+<span class="dv">1</span> <span class="fu">+</span> <span class="dv">3</span>
+<span class="dv">4</span></code></pre></div>
+<h3 id="how-does-if-22-then-reverse-else-tail-abc-work">How does <code>(if 2/=2 then reverse else tail) &quot;abc&quot;</code> work?</h3>
+<p>Here, the <code>if</code> statement determines which function to apply to the string <code>&quot;abc&quot;</code>. Since 2 is <strong><em>not</em></strong> not equal to 2, it’s <code>False</code> and the function performs <code>tail &quot;abc&quot;</code> and returns <code>&quot;bc&quot;</code>.</p>
+<h3 id="why-does-two-length-name-produce-an-error">Why does <code>two * length name</code> produce an error?</h3>
+<p>In this particular example, the variable <code>two</code> is defined as <code>2</code> in your script which Haskell interprets as having type <code>Integer</code>. You can test this by using the <code>:type</code> or <code>:t</code> command:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">:</span>t two
+<span class="ot">two ::</span> <span class="dt">Integer</span></code></pre></div>
+<p><code>name</code> is defined as a String <code>&quot;Haskell&quot;</code> (of type<code>[Char]</code>). The function <code>length</code> returns an <code>Int</code> (see <a href="https://www.haskell.org/hoogle/?hoogle=length">here</a>), so <code>length name</code> will return an <code>7</code> of type <code>Int</code>.<br>Now, the multiplication function <code>*</code> requires you to call it with two values of the <strong>same numeric type</strong> (see <a href="https://www.haskell.org/hoogle/?hoogle=%28*%29">here</a>). But we have seen that GHCi interprets the value <code>two</code> as an <code>Integer</code> rather than an <code>Int</code>. Therefore trying to multiply it with <code>length name</code> (which returns an <code>Int</code>) GHCi will return an error:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">Couldn</span>’t match expected type <span class="kw">`</span><span class="ex">Integer</span>’ with actual type <span class="kw">`</span>Int’
+<span class="ex">In</span> the return type of a call of <span class="kw">`</span><span class="ex">length</span>’
+<span class="ex">In</span> the second argument of <span class="kw">`</span>(*)’, <span class="ex">namely</span> <span class="kw">`</span><span class="ex">length</span> name’
+<span class="ex">In</span> the expression: two * length name</code></pre></div>
+<p>On the other hand, if you type <code>2 * length name</code> into your terminal it will return <code>14</code> of type <code>Int</code>. That is because manually typing a number into GHCi will default to an <code>Int</code>. One way around this would be to convert the two parts of the evaluation to the same type. For example you can convert an <code>Int</code> to an <code>Integer</code> by using the <code>fromIntegral</code> function (see <a href="https://www.haskell.org/hoogle/?hoogle=fromIntegral">here</a>).</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">two <span class="fu">*</span> fromIntegral (length name)
+<span class="dv">14</span>
+<span class="ot">it ::</span> <span class="dt">Integer</span></code></pre></div>
+<p>Or using the <code>fromInteger</code> function (see <a href="https://www.haskell.org/hoogle/?hoogle=fromInteger">here</a>) similarly:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fromInteger two <span class="fu">*</span> length name
+<span class="dv">14</span>
+<span class="ot">it::</span> <span class="dt">Int</span></code></pre></div>
+<p><a href="#">back up</a></p>
+<hr />
+<h2 id="curry-lamda-and-sections">Curry, Lamda and Sections</h2>
+<p>See page 64 of David Smallwoods <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=72">tutorial file</a>. The following examples are taken from <a href="https://wunki.org/posts/2011-10-04-currying-and-partial-application.html">wunki.org</a></p>
+<h3 id="curried-and-uncurried-functions">Curried and uncurried functions</h3>
+<p><strong>Uncurried</strong> function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fooU ::</span> (<span class="dt">Int</span>, <span class="dt">Int</span>) <span class="ot">-&gt;</span> <span class="dt">Int</span>
+fooU (x, y) <span class="fu">=</span> x <span class="fu">*</span> y</code></pre></div>
+<p><strong>Curried</strong> function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fooC ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+fooC x y <span class="fu">=</span> x <span class="fu">*</span> y</code></pre></div>
+<p>The main difference <em>in very simple terms</em> is that the function parameters <code>x</code> and <code>y</code> are given separately in curried functions compared to a tuple in uncurried functions <code>(x,y)</code>.</p>
+<h3 id="anonymous-lamda-functions">Anonymous / Lamda functions</h3>
+<p>Lamda functions are sometimes called anonymous functions because they are not given a name.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fooA ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+fooA x <span class="fu">=</span> \y <span class="ot">-&gt;</span> x <span class="fu">*</span> y</code></pre></div>
+<p>Note that the type signature indicates that the function takes 2 input parameters of type Int, even though in the function expression it only lists 1 of them as <code>x</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> foo x <span class="fu">=</span> \y <span class="ot">-&gt;</span> x <span class="fu">*</span> y
+<span class="fu">&gt;</span> foo <span class="dv">2</span> <span class="dv">3</span>
+<span class="dv">6</span></code></pre></div>
+<h3 id="sections-partial-application">Sections / Partial application</h3>
+<blockquote>
+<p>“Partial function application is the ability to take a function of many parameters and apply arguments to some of the parameters to create a new function that needs only the application of the remaining arguments to produce the equivalent of applying all arguments to the original function.” (<a href="http://rosettacode.org/wiki/Partial_function_application">Source</a> &amp; <a href="http://rosettacode.org/wiki/Partial_function_application#Haskell">Code examples</a>)</p>
+</blockquote>
+<p>Consider the following example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sumTwo x y <span class="fu">=</span> x <span class="fu">+</span> y
+addSeven <span class="fu">=</span> sumTwo <span class="dv">7</span></code></pre></div>
+<p>The second line is equivalent to:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">addSeven <span class="fu">=</span> \y <span class="ot">-&gt;</span> <span class="dv">7</span> <span class="fu">+</span> y</code></pre></div>
+<p>and:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">addSeven y <span class="fu">=</span> sumTwo <span class="dv">7</span> y</code></pre></div>
+<p><a href="#">back up</a></p>
+<hr />
+<h2 id="tuples-and-lists">Tuples and Lists</h2>
+<h3 id="what-is-the-difference-between-tuples-and-lists">What is the difference between <em>tuples</em> and <em>lists</em>?</h3>
+<p>Lists are sequences of elements of the <strong>same type</strong>. They are enclosed by square brackets and separated by commas. E.g. <code>[1,2,3]</code> or <code>[’a’,’c’,’b’]</code>.</p>
+<p>It is possible to have <strong>infinite lists</strong>, for example <code>[1,3..]</code> will produce the list of all odd numbers from 1 to infinity. If you type that into your terminal, remember you can interrupt a process by pressing <code>ctrl c</code>.</p>
+<p>Tuples are <strong>finite</strong> sequences of elements of possibly different types. They are enclosed by round brackets and separated by commas. E.g. <code>(1, &quot;Hello&quot;)</code> or <code>(True, False)</code>.</p>
+<p>Examples:</p>
+<ul>
+<li><code>[1..9]</code></li>
+<li><code>([1..9], [’a’..’z’])</code></li>
+<li><code>[[1,3,5,7,9], [0,2,4,6,8]]</code></li>
+<li><code>(True, [1..])</code></li>
+<li><code>((1, True), (0, False))</code></li>
+<li><code>[(’a’, 1), (’b’, 2)]</code></li>
+<li><code>(1, 2)</code></li>
+</ul>
+<h3 id="why-do-strings-have-the-type-char">Why do Strings have the type [Char]?</h3>
+<p>Because in Haskell Strings are interpreted as a <strong>list of characters</strong>. This allows you to perform list functions like <code>head</code> and <code>tail</code> on Strings:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">head <span class="st">&quot;Haskell&quot;</span>
+’<span class="dt">H</span>’
+<span class="ot">it ::</span> <span class="dt">Char</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">tail <span class="st">&quot;Haskell&quot;</span>
+<span class="st">&quot;askell&quot;</span>
+<span class="ot">it ::</span> [<span class="dt">Char</span>]</code></pre></div>
+<p>Also, this means that if you type in lists of characters into GHCi it will return them as strings of type <code>[Char]</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[’<span class="dt">H</span>’,’a’,’s’,’k’,’e’,’l’,’l’]
+<span class="st">&quot;Haskell&quot;</span>
+<span class="ot">it ::</span> [<span class="dt">Char</span>]</code></pre></div>
+<p><a href="#">back up</a></p>
+<hr />
+<h2 id="types-polymorphism-and-order-of-execution">Types, Polymorphism and Order of Execution</h2>
+<h3 id="what-is-the-meaning-of-t">What is the meaning of <code>:t</code>?</h3>
+<p><code>:t</code> is short for <code>:type</code> and returns the type definition of a function. E.g.:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">:</span>t sum
+sum<span class="ot"> ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> [a] <span class="ot">-&gt;</span> a</code></pre></div>
+<p>This is different from the <code>:set +t</code> command which sets GHCi to automatically return the type of an output from an expression (for the current session only though - so you have to set that every time you restart GHCi).</p>
+<h3 id="what-are-function-types">What are function types?</h3>
+<p>In general a function type definition has the following structure.</p>
+<ul>
+<li>To the left of the <code>::</code> you find the <strong>name</strong> of the function,</li>
+<li>to the left of the <code>-&gt;</code> arrow you find the given type for the functions <strong>input</strong> parameters and</li>
+<li>then on the right of the <code>-&gt;</code> arrow you find the type of the <strong>output</strong> value</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">functionName ::</span> <span class="dt">InputType</span> <span class="ot">-&gt;</span> <span class="dt">OutputType</span></code></pre></div>
+<h3 id="what-is-the-difference-between-add-int-and-add-num-a-a">What is the difference between <code>add :: Int</code> and <code>add :: Num a =&gt; a</code>?</h3>
+<p>In short, the first is more specific than the second.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">add ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+add x y z <span class="fu">=</span> x <span class="fu">+</span> y <span class="fu">+</span> z</code></pre></div>
+<p>Calling this function with <code>Ints</code> will work fine:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">add <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>
+<span class="dv">6</span>
+<span class="ot">it ::</span> <span class="dt">Int</span></code></pre></div>
+<p>But trying to call it with any other kinds of numbers will not work:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">add</span> 1.4 2.6.3.0
+<span class="ex">No</span> instance for (Fractional Int) <span class="ex">arising</span> from the literal <span class="kw">`</span><span class="ex">1.4</span>’
+<span class="ex">In</span> the first argument of <span class="kw">`</span>add’, namely <span class="kw">`</span><span class="ex">1.4</span>’
+<span class="ex">In</span> the expression: add 1.4 2.6 3.0
+<span class="ex">In</span> an equation for <span class="kw">`</span>it’: it = add 1.4 2.6 3.0</code></pre></div>
+<p>If your <code>add</code> function has the specific kind of type definition then trying to run <code>add 1.4 2.6.3.0</code> returns an error for example. This is because you have told Haskell that your function only works with <code>Ints</code>. If you use the more generic (<strong>polymorphic</strong> and <strong>overloaded</strong>) type definition however, then you’d get the result.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">add ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a
+add x y z <span class="fu">=</span> x <span class="fu">+</span> y <span class="fu">+</span> z</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">add <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>
+<span class="dv">6</span>
+<span class="ot">it ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">add <span class="fl">1.4</span> <span class="fl">2.6</span><span class="fu">.</span><span class="fl">3.0</span>
+<span class="fl">7.0</span>
+<span class="ot">it ::</span> <span class="dt">Fractional</span> a <span class="ot">=&gt;</span> a</code></pre></div>
+<h3 id="what-are-polymorphic-and-overloaded-functions-again">What are <em>polymorphic</em> and <em>overloaded</em> functions again?</h3>
+<p>A function is <strong>polymorphic</strong> if it takes values that can have <strong>more than one type</strong>. See David Smallwood’s tutorial <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page63">here</a>. For example, <code>length</code> is defined polymorphically. In this case <code>a</code> is a <strong>type variable</strong> and represents any type. The function therefore takes a list of any type of value (<code>[Int]</code>, <code>[[Char]]</code>, <code>[(Double, Bool)]</code>, etc) but then specifically returns an <code>Int</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">length<span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Int</span></code></pre></div>
+<p>A polymorphic function is called <strong>overloaded</strong> if its type contains one or more <strong>class constraints</strong>. For example, the sum function takes a list <code>[a]</code> as input and returns a value of type <code>a</code> but this time <code>a</code> has to be of a <em>class of numeric types</em>. The numeric class (<code>Num</code>) contains all sorts of types: (<code>Int</code>, <code>Integer</code>, <code>Float</code>, <code>Double</code>, <code>Fractional</code>, etc) (See <a href="http://hackage.haskell.org/package/base-4.7.0.2/docs/Prelude.html#t:Num">Prelude#t:Num</a>).</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum<span class="ot"> ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> [a] <span class="ot">-&gt;</span> a</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+<span class="dv">6</span>
+<span class="ot">it ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sum [<span class="fl">2.5</span>, <span class="dv">3</span>, <span class="fl">4.5</span>]
+<span class="fl">10.0</span>
+<span class="ot">it ::</span> <span class="dt">Fractional</span> a <span class="ot">=&gt;</span> a</code></pre></div>
+<ul>
+<li>To the left of the <code>::</code> you find the <strong>name</strong> of the function,</li>
+<li>between the <code>::</code> and the <code>=&gt;</code> you find the <strong>class constraint</strong>,</li>
+<li>to the left of the <code>-&gt;</code> arrow you find the given type for the functions <strong>input</strong> parameters and</li>
+<li>then on the right of the <code>-&gt;</code> arrow you find the type of the <strong>output</strong> value</li>
+</ul>
+<p><code>functionName :: ClassConstraint =&gt; InputType -&gt; OutputType</code>.</p>
+<p>Other type classes include <code>Eq</code> for equality (see <a href="http://hackage.haskell.org/package/base-4.7.0.2/docs/Prelude.html#t:Eq">Prelude#t:Eq</a>) and <code>Ord</code> for orderable datatypes (see <a href="http://hackage.haskell.org/package/base-4.7.0.2/docs/Prelude.html#t:Ord">Prelude#t:Ord</a>). E.g.:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(+)  ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a
+<span class="ot">(==) ::</span> <span class="dt">Eq</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+<span class="ot">(&lt;)  ::</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
+<p>See also the LearnYouAHasekll chapter on types <a href="http://learnyouahaskell.com/types-and-typeclasses">here</a>.</p>
+<h3 id="what-is-the-meaning-of-���-in-function-names">What is the meaning of <code>’</code> in function names?</h3>
+<p>Often in the examples you will have encountered functions with a <code>’</code> at the end like <code>add’</code> vs. <code>add</code>. There is no specific meaning to this other than to give the function a slightly different name. We could have equally called it <code>add1</code> or <code>anotherAdd</code> to set it apart from the first <code>add</code> function we defined.<br>You might want to review Haskell <a href="https://wiki.haskell.org/Programming_guidelines#Naming_Conventions">naming conventions</a>.</p>
+<h3 id="in-which-order-is-mult-x-y-z-evaulated">In which order is <code>mult x y z</code> evaulated?</h3>
+<blockquote>
+<p>“the <code>-&gt;</code> operator is right associative, and function application is left associative” (<a href="https://wiki.haskell.org/Partial_application">Source</a>)</p>
+</blockquote>
+<p>Because function application is left associative, <code>mult x y z</code> gets evaluated as <code>((mult x) y) z</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mult ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
+mult x y z</code></pre></div>
+<p>But remeber that the <code>-&gt;</code> operator is right associative, hence the function definition really looks something like this.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mult ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> (<span class="dt">Int</span> <span class="ot">-&gt;</span> (<span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>))
+((mult x) y) z</code></pre></div>
+<p>You don’t have to add these parenthesis, but you should know that this is the default order of evaluation!</p>
+<p><a href="#">back up</a></p>
+<hr />
+<h2 id="functions">Functions</h2>
+<h3 id="how-do-i-write-a-function-from-scratch">How do I write a function from scratch?</h3>
+<p>In the first exercise we are asked to write a function that splits a list into two halves. We are given the function’s <strong>type signature</strong> as a starting point.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">halve ::</span> [a] <span class="ot">-&gt;</span> ([a],[a])</code></pre></div>
+<p>Let’s start filling in the bits we know, e.g.�we know the name of the function (<code>halve</code>) and that the output is structured as a <strong>tuple</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">halve ::</span> [a] <span class="ot">-&gt;</span> ([a],[a])
+halve <span class="fu">=</span> (   ,   )</code></pre></div>
+<p><em>Note that this won’t run - GHCi will return an error because it’s an incomplete function!</em></p>
+<p>Next, we know the input to the function is a list of polymorphic type, so we know that we will be able to call this function in GHCi like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">halve [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>]</code></pre></div>
+<p>and it should return a result like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],[<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>])</code></pre></div>
+<p>Because the function is polymorphic we can also call it with <code>Char</code> types for example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">halve [’a’,’b’,’c’,’d’]</code></pre></div>
+<p>which would return:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="st">&quot;ab&quot;</span>,<span class="st">&quot;cd&quot;</span>)</code></pre></div>
+<p>Also, because “lists of <code>Chars</code>” are synonymous to <code>Strings</code> we can call the function with a <code>String</code> like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">halve <span class="st">&quot;Haskell&quot;</span></code></pre></div>
+<p>which would return:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="st">&quot;Has&quot;</span>,<span class="st">&quot;kell&quot;</span>)</code></pre></div>
+<p><strong>Now, let’s get back to writing our function by filling in the gaps of <code>halve  = (   ,   )</code>.</strong></p>
+<p>We know from the <strong>type signature</strong> <code>halve :: [a] -&gt; ([a],[a])</code> that there is one input parameter of type <code>[a]</code> and one output tuple of type <code>([a],[a])</code>.</p>
+<p><br /><span class="math display">$$
+\definecolor{blue}{RGB}{181,204,227}
+\text{halve} \ {\underbrace{\qquad\qquad\qquad} \atop \color{blue}\small\text{input parameter}} \ = \ ( {\underbrace{\qquad\qquad\qquad} \atop \color{blue}\small\text{first half}} \ , \ {\underbrace{\qquad\qquad\qquad} \atop \color{blue}\small\text{second half}} \ )
+$$</span><br /></p>
+<p>Let’s call the input parameter <code>xs</code>: <em>remember the convention to put an <code>s</code> on variables that represent lists!</em></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">halve xs <span class="fu">=</span> (   ,   )</code></pre></div>
+<p>Next, let’s think of how to get the <strong>first half</strong> of <code>xs</code>. How do we know what <em>half</em> of the input list is? Well, it’s the total length of <code>xs</code> divided by <code>2</code>, right?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">length xs <span class="ot">`div`</span> <span class="dv">2</span></code></pre></div>
+<p>Let’s give this value a name (<code>n</code>) so that we can use it in our function by writing it into a <code>where</code> statement in a new line and slightly indented (this is important).</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">halve ::</span> [a] <span class="ot">-&gt;</span> ([a],[a])
+halve xs <span class="fu">=</span> (   ,   )
+      <span class="kw">where</span> n <span class="fu">=</span> length xs <span class="ot">`div`</span> <span class="dv">2</span></code></pre></div>
+<p>Now we can define the two halves in our output tuple using the <code>take</code> and <code>drop</code> functions from the <strong>Standard Haskell Prelude</strong> (which is loaded into GHCi by default and we don’t have to manually import the library).</p>
+<p>Since <code>n</code> now represents the length of half the input list <code>xs</code> we can <strong>take the first n elements in the list xs</strong> which translates into Haskell like this: <code>take n xs</code>. Similarly we can <strong>drop the first n elements from the list xs</strong> to get the second half: <code>drop n xs</code>.</p>
+<p>The complete function then looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">halve ::</span> [a] <span class="ot">-&gt;</span> ([a],[a])
+halve xs <span class="fu">=</span> ( take n xs , drop n xs )
+      <span class="kw">where</span> n <span class="fu">=</span> length xs <span class="ot">`div`</span> <span class="dv">2</span></code></pre></div>
+<h3 id="how-do-i-split-a-list-into-three-parts">How do I split a list into three parts?</h3>
+<p>We can use a similar approach to the <code>halve</code> function explained above.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">split3 ::</span> [a] <span class="ot">-&gt;</span> ([a],[a],[a])
+split3 xs <span class="fu">=</span> (   ,   ,   )
+      <span class="kw">where</span> n <span class="fu">=</span> length xs <span class="ot">`div`</span> <span class="dv">3</span></code></pre></div>
+<p>Using <code>take</code> and <code>drop</code> and a variable <code>n</code> which represents a <em>third</em> of the length of <code>xs</code> we can create the various parts of our output tuple as such:</p>
+<figure>
+<img src="images/table.png" />
+</figure>
+<p>So our final solution could be this (note from the table above that there are various options on how to extract the three thirds of the input list):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">split3 ::</span> [a] <span class="ot">-&gt;</span> ([a],[a],[a])
+split3 xs <span class="fu">=</span> ( take n xs , take n (drop n xs) , drop (n<span class="fu">*</span><span class="dv">2</span>) xs )
+      <span class="kw">where</span> n <span class="fu">=</span> length xs <span class="ot">`div`</span> <span class="dv">3</span></code></pre></div>
+<h3 id="what-are-the-different-kinds-of-techniques-for-writing-functions">What are the different kinds of techniques for writing functions?</h3>
+<p>There are various techniques in Haskell for writing functions and expressions. Some of them are fairly similar in style to other languages and others are quite different. Deciding when to use one technique over another depends on the purpose of the function.</p>
+<ul>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=67">Functions</a></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=67">Anonymous functions / lambda functions</a></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=68">Naming functions</a></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=71">Structured Parameters</a></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=72">Curried functions / partial function application</a></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=73">Associativity</a></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=75"><code>let</code> / <code>where</code> expressions</a>
+<ul>
+<li><code>let x = 3 in x * x + x</code></li>
+<li><code>let x = 3 in let y = 4 in x + y</code></li>
+<li><code>let {x = 3; y = 4} in x + y</code></li>
+<li><code>let x = not True in if x then x else not x</code></li>
+<li><code>let {s = &quot;One&quot;; t = &quot;Two&quot;} in length s + length t</code></li>
+<li><code>f (x,y) = let m = (x + y)/2 in (x-m, y-m)</code></li>
+<li><div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">f (x,y) <span class="fu">=</span> s<span class="fu">/</span>p
+<span class="kw">where</span> s <span class="fu">=</span> x <span class="fu">+</span> y
+p <span class="fu">=</span> x <span class="fu">*</span> y</code></pre></div></li>
+</ul></li>
+<li><code>if</code>/<code>then</code>/<code>else</code> statements
+<ul>
+<li><code>if True then &quot;bc&quot; else &quot;de&quot;</code></li>
+<li><code>1 + if 2/=2 then 3 else 4</code></li>
+<li><code>(if 2/=2 then reverse else tail) &quot;abc&quot;</code></li>
+</ul></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=69">Guarded equations</a>
+<ul>
+<li><div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sign x 
+  <span class="fu">|</span> x <span class="fu">&lt;</span> <span class="dv">0</span>  <span class="fu">=</span> <span class="fu">-</span><span class="dv">1</span>
+  <span class="fu">|</span> x <span class="fu">==</span> <span class="dv">0</span> <span class="fu">=</span> <span class="dv">0</span>
+  <span class="fu">|</span> x <span class="fu">&gt;</span> <span class="dv">0</span>  <span class="fu">=</span> <span class="dv">1</span></code></pre></div></li>
+<li><code>sign x | x &lt; 0  = -1 | x == 0 = 0 | x &gt; 0  = 1</code></li>
+</ul></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=76"><code>case</code> statements</a>
+<ul>
+<li><div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foo a <span class="fu">=</span> <span class="kw">case</span> a <span class="kw">of</span>
+(<span class="dv">0</span>,ys)      <span class="ot">-&gt;</span> <span class="dv">0</span>
+(x,(y<span class="fu">:</span>ys))  <span class="ot">-&gt;</span> y
+(x,[])      <span class="ot">-&gt;</span> x</code></pre></div></li>
+</ul></li>
+<li><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=70">Recursion</a>
+<ul>
+<li><code>fib n = if n == 0 then 1 else if n == 1 then 1 else fib (n-1) + fib (n-2)</code></li>
+</ul></li>
+<li><p><a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=76">Pattern matching</a></p>
+<ul>
+<li><div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fib <span class="dv">0</span> <span class="fu">=</span> <span class="dv">1</span>
+fib <span class="dv">1</span> <span class="fu">=</span> <span class="dv">1</span>
+fib n <span class="fu">=</span> fib (n<span class="fu">-</span><span class="dv">1</span>) <span class="fu">+</span> fib (n<span class="fu">-</span><span class="dv">2</span>)</code></pre></div></li>
+<li><div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foo (<span class="dv">0</span>,ys) <span class="fu">=</span> <span class="dv">0</span>
+foo (x,(y<span class="fu">:</span>ys)) <span class="fu">=</span> y
+foo (x,[]) <span class="fu">=</span> x</code></pre></div></li>
+</ul></li>
+</ul>
+<h3 id="functions-1">Functions</h3>
+<p>Functions have a name and usually one or more input parameters. There is only ever one output. The type signature of a function is optional when writing functions in a script - Haskell can derive it by itself - but it is good practice to include the type signature as a form of documentation.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">add ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="fu">&gt;</span> a <span class="ot">-&gt;</span> a
+add x y z <span class="fu">=</span> x <span class="fu">+</span> y <span class="fu">+</span> z</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">add <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>
+<span class="dv">6</span></code></pre></div>
+<p>E.g.</p>
+<p><br /><span class="math display">$$
+\definecolor{blue}{RGB}{181,204,227}
+\underbrace{ \ \text{add} \ }_{\color{blue}\small\text{function name}} ::
+\underbrace{\ \text{Num a} \Rightarrow \ }_{\color{blue}\small\text{class constraint}} 
+\underbrace{\ \text{a} \rightarrow \ }_{\color{blue}\small\text{input 1}} 
+\underbrace{ \ \text{a} \rightarrow \ }_{\color{blue}\small\text{input 2}}
+\underbrace{ \ \text{a} \rightarrow \ }_{\color{blue}\small\text{input 3}}
+\underbrace{ \ \text{a} \ }_{\color{blue}\small\text{output}}
+$$</span><br /></p>
+<p><br /><span class="math display">$$
+\definecolor{blue}{RGB}{181,204,227}
+\underbrace{ \ \text{add} \ }_{\color{blue}\small\text{function name}} \ 
+\underbrace{ \quad \text{x} \quad }_{\color{blue}\small\text{input 1}} \ 
+\underbrace{ \quad \text{y} \quad }_{\color{blue}\small\text{input 2}} \ 
+\underbrace{ \quad \text{z} \quad }_{\color{blue}\small\text{input 3}} \ 
+\underbrace{ \qquad\quad \text{=} \qquad\quad }_{\color{blue}\small\text{assignment operator}} \ 
+\underbrace{ \ \text{x+y+z} \ }_{\color{blue}\small\text{output}} 
+$$</span><br /></p>
+<p>The <strong>class constraint</strong> is optional, and there can be <code>0</code> or more <strong>input parameters</strong> but always one <strong>result</strong>.</p>
+<h3 id="anonymous-functions">Anonymous functions</h3>
+<p>Anonymous functions or lambda functions are <strong>nameless</strong> functions. This allows us to declare them on the fly. The structure is as follows.</p>
+<p><br /><span class="math display">$$
+\definecolor{blue}{RGB}{181,204,227}
+\underbrace{ \ \text{\\} \ }_{\color{blue}\small\text{lambda}} \ 
+\underbrace{ \quad \text{x} \quad }_{\color{blue}\small\text{input}} \ 
+\underbrace{ \qquad \rightarrow \qquad }_{\color{blue}\small\text{assignment operator}} \ 
+\underbrace{ \ \text{x*2} \ }_{\color{blue}\small\text{output}} 
+$$</span><br /></p>
+<p>Instead of a function name we now have the <strong>lambda</strong> symbol (a backslash in Haskell) <code>\</code> and instead of the normal <strong>assignment operator</strong> <code>=</code> we use the <code>-&gt;</code> symbol.</p>
+<p>Similar to normal functions, we can use various techniques within a lamda expression and have more than one parameter. For example:</p>
+<ul>
+<li><code>\x -&gt; 2 * x</code></li>
+<li><code>\x y -&gt; x + y</code></li>
+<li><code>\x y z -&gt;  (x - 1/z) + y</code></li>
+<li><code>\x y z -&gt; if x then y + z else y - z</code></li>
+</ul>
+<p>We can use lamda expressions as inputs for the <code>map</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">map (\x <span class="ot">-&gt;</span> <span class="kw">if</span> x <span class="fu">==</span> <span class="dv">1</span> <span class="kw">then</span> <span class="dv">0</span> <span class="kw">else</span> <span class="dv">1</span>) [<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>]
+[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">map (\(x,y) <span class="ot">-&gt;</span> x <span class="fu">+</span> y) [(<span class="dv">1</span>,<span class="dv">2</span>),(<span class="dv">2</span>,<span class="dv">3</span>),(<span class="dv">4</span>,<span class="dv">5</span>)]
+[<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">9</span>]</code></pre></div>
+<p><a href="#">back up</a></p>
+<hr />
+<h2 id="list-comprehensions">List comprehensions</h2>
+<h3 id="list-comprehensions-definition">List comprehensions definition</h3>
+<p>List comprehensions are defined in the <a href="https://www.haskell.org/onlinereport/exps.html#sect3.11">official documentation</a> as: <strong><code>[ e | q1, ..., qn ]</code></strong><br />
+where <code>n&gt;=1</code> and the <code>qi</code> qualifiers are either</p>
+<ul>
+<li><strong>generators</strong> of the form <code>p &lt;- e</code>, where <code>p</code> is a pattern of type <code>t</code> and <code>e</code> is an expression of type <code>[t]</code></li>
+<li><strong>guards</strong>, which are arbitrary expressions of type <code>Bool</code></li>
+<li><strong>local bindings</strong> that provide new definitions for use in the generated expression e or subsequent guards and generators using <code>let</code> notation.</li>
+</ul>
+<p>See also David’s tutorial on <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=92">page 84</a>.</p>
+<h3 id="list-comprehensions-vs-loops">List comprehensions vs loops</h3>
+<p>In pseudo C using for-loops:</p>
+<div class="sourceCode"><pre class="sourceCode c"><code class="sourceCode c"><span class="cf">for</span> ( <span class="dt">int</span> x = <span class="dv">1</span>; x &lt;= <span class="dv">4</span>; x++ ) {
+      <span class="cf">for</span> ( <span class="dt">int</span> y = <span class="dv">1</span>; y &lt;= <span class="dv">2</span>; y++ ) {
+            <span class="co">//add (x,y) to myList</span>
+      }
+}</code></pre></div>
+<p>In Haskell:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">myList <span class="fu">=</span> [(x,y) <span class="fu">|</span> x <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">4</span>], y <span class="ot">&lt;-</span> [<span class="dv">1</span>,<span class="dv">2</span>]]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">ghci<span class="fu">&gt;</span> mylist
+[(<span class="dv">1</span>,<span class="dv">1</span>),(<span class="dv">1</span>,<span class="dv">2</span>),(<span class="dv">2</span>,<span class="dv">1</span>),(<span class="dv">2</span>,<span class="dv">2</span>),(<span class="dv">3</span>,<span class="dv">1</span>),(<span class="dv">3</span>,<span class="dv">2</span>),(<span class="dv">4</span>,<span class="dv">1</span>),(<span class="dv">4</span>,<span class="dv">2</span>)]</code></pre></div>
+<h3 id="infinite-lists">Infinite lists</h3>
+<p>Example taken from <a href="https://wiki.haskell.org/List_comprehension">haskell.org</a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">ghci<span class="fu">&gt;</span> take <span class="dv">5</span> [ (i,j) <span class="fu">|</span> i <span class="ot">&lt;-</span> [<span class="dv">1</span>,<span class="dv">2</span>], j <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="fu">..</span>]] 
+[(<span class="dv">1</span>,<span class="dv">1</span>),(<span class="dv">1</span>,<span class="dv">2</span>),(<span class="dv">1</span>,<span class="dv">3</span>),(<span class="dv">1</span>,<span class="dv">4</span>),(<span class="dv">1</span>,<span class="dv">5</span>)]</code></pre></div>
+<blockquote>
+<p>“each successive generator refines the results of the previous generator. Thus, if the second list is infinite, one will never reach the second element of the first list.” <a href="https://wiki.haskell.org/List_comprehension">Source</a></p>
+</blockquote>
+<p>So, because the second generator (the <em>inner loop</em>) <code>[1..]</code> produces an infinite list, this list comprehension theoretically creates an infinite list of tuples: <code>[(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),..</code> etc. The first value of the tuple (<code>i</code>) is never incremented because we infinitely increment the second one (<code>j</code>) first.</p>
+<p>The whole expression however asks only for the first 5 elements (<code>take 5</code>) of the infinite list that is being generated through the list comprehension.</p>
+<h3 id="set-notation">Set Notation</h3>
+<p>Examples taken from <a href="http://en.wikipedia.org/wiki/List_comprehension#Overview">Wikipedia</a>: In mathematics, set notation looks like this:</p>
+<p><br /><span class="math display">$$
+\definecolor{blue}{RGB}{181,204,227}
+S = \{ \ 2 \cdot x \ | \ x \in \mathbb{N}, \ x^2 &gt; 3 \ \}
+$$</span><br /></p>
+<p>This means:</p>
+<p><br /><span class="math display">$$
+\definecolor{blue}{RGB}{181,204,227}
+S = \{ \underbrace{ \ 2 \cdot x \ }_{\color{blue}\text{output expr.}} \ | \ \underbrace{ \ x \ }_{\color{blue}\text{variable}} \in \underbrace{ \ \mathbb{N} \ }_{\color{blue}\text{input set}}, \ \underbrace{ \ x^2 &gt; 3 \ }_{\color{blue}\text{predicate}} \}
+$$</span><br /></p>
+<p>In <a href="http://en.wikipedia.org/wiki/List_comprehension#Haskell">Haskell</a> this translates directly into:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">s <span class="fu">=</span> [ <span class="dv">2</span><span class="fu">*</span>x <span class="fu">|</span> x <span class="ot">&lt;-</span> [<span class="dv">0</span><span class="fu">..</span>], x<span class="fu">^</span><span class="dv">2</span> <span class="fu">&gt;</span> <span class="dv">3</span>]</code></pre></div>
+<p>This reads something like:<br />
+“for each x from 0 to infinity: if x^2 is larger than 3 then return 2*x”</p>
+<ul>
+<li><code>2*x</code> is the <strong>output expression</strong></li>
+<li><code>|</code> separates the output expression from the generators, guards and local bindings</li>
+<li><code>x &lt;- [0..]</code> is the <strong>generator</strong></li>
+<li><code>x^2 &gt; 3</code> is the <strong>guard</strong> condition</li>
+</ul>
+<h3 id="more-list-comprehension-examples">More List comprehension examples</h3>
+<p><strong>if-then-else statements within the list comprehension:</strong></p>
+<p>Taken from: <a href="http://learnyouahaskell.com/starting-out#im-a-list-comprehension">learnyouahaskell.com</a></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">boomBangs xs <span class="fu">=</span> [ <span class="kw">if</span> x <span class="fu">&lt;</span> <span class="dv">10</span> <span class="kw">then</span> <span class="st">&quot;BOOM!&quot;</span> <span class="kw">else</span> <span class="st">&quot;BANG!&quot;</span> <span class="fu">|</span> x <span class="ot">&lt;-</span> xs, odd x]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">ghci<span class="fu">&gt;</span> boomBangs [<span class="dv">7</span><span class="fu">..</span><span class="dv">13</span>]  
+[<span class="st">&quot;BOOM!&quot;</span>,<span class="st">&quot;BOOM!&quot;</span>,<span class="st">&quot;BANG!&quot;</span>,<span class="st">&quot;BANG!&quot;</span>]</code></pre></div>
+<p><strong>Nested List comprehensions:</strong></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">ghci<span class="fu">&gt;</span> <span class="kw">let</span> xxs <span class="fu">=</span> [[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>],[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>],[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>]]  
+ghci<span class="fu">&gt;</span> [ [ x <span class="fu">|</span> x <span class="ot">&lt;-</span> xs, even x ] <span class="fu">|</span> xs <span class="ot">&lt;-</span> xxs]  
+[[<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>],[<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>],[<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">6</span>]]</code></pre></div>
+<p><strong>Local bindings using let expressions:</strong></p>
+<p>Taken from: <a href="http://learnyouahaskell.com/syntax-in-functions#let-it-be">learnyouahaskell.com</a></p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">calcBmis ::</span> (<span class="dt">RealFloat</span> a) <span class="ot">=&gt;</span> [(a, a)] <span class="ot">-&gt;</span> [a]  
+calcBmis xs <span class="fu">=</span> [bmi <span class="fu">|</span> (w, h) <span class="ot">&lt;-</span> xs, <span class="kw">let</span> bmi <span class="fu">=</span> w <span class="fu">/</span> h <span class="fu">^</span> <span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">calcBmis ::</span> (<span class="dt">RealFloat</span> a) <span class="ot">=&gt;</span> [(a, a)] <span class="ot">-&gt;</span> [a]  
+calcBmis xs <span class="fu">=</span> [bmi <span class="fu">|</span> (w, h) <span class="ot">&lt;-</span> xs, <span class="kw">let</span> bmi <span class="fu">=</span> w <span class="fu">/</span> h <span class="fu">^</span> <span class="dv">2</span>, bmi <span class="fu">&gt;=</span> <span class="fl">25.0</span>]</code></pre></div>
+<h3 id="lecture-example">Lecture example</h3>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">positions ::</span> <span class="dt">Eq</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [<span class="dt">Int</span>]
+positions x xs <span class="fu">=</span>
+      [i <span class="fu">|</span> (x’,i) <span class="ot">&lt;-</span> zip xs [<span class="dv">0</span><span class="fu">..</span>n], x <span class="fu">==</span> x’]
+      <span class="kw">where</span> n <span class="fu">=</span> length xs <span class="fu">-</span> <span class="dv">1</span></code></pre></div>
+<p>We can run this function as follows:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">ghci<span class="fu">&gt;</span> positions <span class="dv">0</span> [<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>]
+[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">7</span>]</code></pre></div>
+<p>To understand this function, let’s look at the list comprehension. Remember the expression around the left pointing arrow <code>&lt;-</code> is called a <strong>generator</strong>.</p>
+<p>The generator of this list comprehension (<code>(x’,i) &lt;- zip xs [0..n]</code>) creates a list of type <code>[(x’,i)]</code> by <em>zipping</em> <code>xs</code> and <code>[0..n]</code> together. We are calling the function <code>positions</code> with <code>x</code> as <code>0</code> and <code>xs</code> as <code>[1,0,0,1,0,1,1,0]</code> and <code>n</code> is locally defined using the <code>where</code> notation as the length of our list <code>xs</code> minus <code>1</code>. The length of <code>xs</code> is <code>8</code>, therefore <code>n</code> must be <code>7</code>. This means that the generator will zip these two lists together:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">zip [<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>] [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]</code></pre></div>
+<p>which returns:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[(<span class="dv">1</span>,<span class="dv">0</span>),(<span class="dv">0</span>,<span class="dv">1</span>),(<span class="dv">0</span>,<span class="dv">2</span>),(<span class="dv">1</span>,<span class="dv">3</span>),(<span class="dv">0</span>,<span class="dv">4</span>),(<span class="dv">1</span>,<span class="dv">5</span>),(<span class="dv">1</span>,<span class="dv">6</span>),(<span class="dv">0</span>,<span class="dv">7</span>)]</code></pre></div>
+<p>Each of those tuples in this list is of type <code>(x&quot;,i)</code>. Now, the list comprehension states that we are only interested in those elements of the list where <code>x</code> is equal to <code>x&quot;</code>. This is called the <strong>guard</strong> expression and is separated from the <strong>generator</strong> by a single comma. Remember that <code>x</code> is <code>0</code>. This means we can delete any elements of the list where <code>x&quot;</code> is not equal to <code>0</code>. We are then left with:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[(<span class="dv">0</span>,<span class="dv">1</span>),(<span class="dv">0</span>,<span class="dv">2</span>),(<span class="dv">0</span>,<span class="dv">4</span>),(<span class="dv">0</span>,<span class="dv">7</span>)]</code></pre></div>
+<p>The list comprehension also states that the type of our output list should be <code>[i]</code> (the bit before <code>|</code> in the list comprehension), that means we can discard all <code>x&quot;</code> in our list of tuples <code>[(x&quot;,i)]</code> so that we are left with only the <code>i</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">7</span>]</code></pre></div>
+<p><a href="#">back up</a></p>
+<hr />
+<h2 id="guards-and-map">Guards and map</h2>
+<h3 id="guarded-equations">Guarded equations</h3>
+<p>Here is an example of a guarded equation:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">sign ::</span> (<span class="dt">Ord</span> a, <span class="dt">Num</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span>
+sign x 
+      <span class="fu">|</span> x <span class="fu">&amp;</span>lt; <span class="dv">0</span>      <span class="fu">=</span> <span class="fu">-</span><span class="dv">1</span>
+      <span class="fu">|</span> x <span class="fu">==</span> <span class="dv">0</span>     <span class="fu">=</span>  <span class="dv">0</span>
+      <span class="fu">|</span> otherwise  <span class="fu">=</span>  <span class="dv">1</span></code></pre></div>
+<p>This is very similar to mathematical notation:</p>
+<p><br /><span class="math display">$$
+\text{sign}(x) = 
+\begin{cases}
+-1  &amp; \quad \text{if } x &lt; 0\\
+0   &amp; \quad \text{if } x == 0\\
+1   &amp; \quad \text{otherwise}
+\end{cases}
+$$</span><br /></p>
+<p>To write the <code>zoe</code> function we need to put the three specified cases into this <em>guarded</em> notation. If the input parameter <code>x</code> is <code>0</code> then we want to return <code>0</code>; if <code>x</code> is odd we want to return <code>1</code> and if <code>x</code> is even we return <code>2</code>. Putting what we know so far into code is easy:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">zoe ::</span> (<span class="dt">Integral</span> a, <span class="dt">Num</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span>
+zoe x
+      <span class="fu">|</span> <span class="st">&quot;if x is equal to 0 return 0&quot;</span>
+      <span class="fu">|</span> <span class="st">&quot;if x is odd then return 1&quot;</span>
+      <span class="fu">|</span> <span class="st">&quot;if x is even then return 2&quot;</span></code></pre></div>
+<p>These statements obviously need to be replaced with the appropriate conditional statements in Haskell.</p>
+<p><code>&quot;if x is equal to 0 return 0&quot;</code> can be written as <code>x == 0 = 0</code>. Checking if a number is even or odd can be done in two ways: we can either use the Standard Haskell Prelude functions <code>odd</code> and <code>even</code>, or we can use <code>mod</code> (for example, if the remainder of a number divided by <code>2</code> is <code>0</code> then the number must be <strong>even</strong>; if the remainder is <code>1</code> then it must be <strong>odd</strong>).</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">zoe ::</span> (<span class="dt">Integral</span> a, <span class="dt">Num</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span>
+zoe x
+      <span class="fu">|</span> x <span class="fu">==</span> <span class="dv">0</span> <span class="fu">=</span> <span class="dv">0</span>
+      <span class="fu">|</span> odd x  <span class="fu">=</span> <span class="dv">1</span>
+      <span class="fu">|</span> even x <span class="fu">=</span> <span class="dv">2</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">zoe ::</span> (<span class="dt">Integral</span> a, <span class="dt">Num</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span>
+zoe x
+      <span class="fu">|</span> x <span class="fu">==</span> <span class="dv">0</span>    <span class="fu">=</span> <span class="dv">0</span>
+      <span class="fu">|</span> odd x     <span class="fu">=</span> <span class="dv">1</span>
+      <span class="fu">|</span> otherwise <span class="fu">=</span> <span class="dv">2</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">zoe ::</span> (<span class="dt">Integral</span> a, <span class="dt">Num</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span>
+zoe x
+      <span class="fu">|</span> x <span class="fu">==</span> <span class="dv">0</span>         <span class="fu">=</span> <span class="dv">0</span>
+      <span class="fu">|</span> x <span class="ot">`mod`</span> <span class="dv">2</span> <span class="fu">==</span> <span class="dv">1</span> <span class="fu">=</span> <span class="dv">1</span>
+      <span class="fu">|</span> x <span class="ot">`mod`</span> <span class="dv">2</span> <span class="fu">==</span> <span class="dv">0</span> <span class="fu">=</span> <span class="dv">2</span></code></pre></div>
+<h3 id="how-do-i-use-the-map-function">How do I use the <code>map</code> function?</h3>
+<blockquote>
+<p>“<code>map f xs</code> is the list obtained by applying <code>f</code> to each element of <code>xs</code>” <a href="http://hackage.haskell.org/package/base-4.7.0.2/docs/Prelude.html#v:map">Source</a></p>
+</blockquote>
+<p>The <code>map</code> function has the following type signature:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">map<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]</code></pre></div>
+<p>which means it takes a function of type <code>(a -&gt; b)</code> as the first input parameter and a list of type <code>[a]</code> as the second. The function returns a list of type <code>[b]</code>.</p>
+<p>Now that you have seen <strong>recursive functions</strong> you should be able to understand the actual function definition of <code>map</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">map<span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]
+map _ []     <span class="fu">=</span> []
+map f (x<span class="fu">:</span>xs) <span class="fu">=</span> f x <span class="fu">:</span> map f xs</code></pre></div>
+<p>We can run this function like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">map (<span class="fu">+</span><span class="dv">1</span>) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>]
+[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]</code></pre></div>
+<p>It evaluates recursively like this:</p>
+<pre><code>map (+1) [1,2,3,4,5,6]
+= (+1) 1 : map (+1) [2,3,4,5,6]
+= 2 : (+1) 2 : map (+1) [3,4,5,6]
+= 2 : 3 : (+1) 3 : map (+1) [4,5,6]
+= 2 : 3 : 4 : (+1) 4 : map (+1) [5,6]
+= 2 : 3 : 4 : 5 : (+1) 5 : map (+1) [6]
+= 2 : 3 : 4 : 5 : 6 : (+1) 6 : map (+1) []
+= 2 : 3 : 4 : 5 : 6 : 7 : []
+= [2,3,4,5,6,7]</code></pre>
+<p>Note also that when providing the <code>map</code> function with an <strong>anonymous function</strong> as the first input parameter, then we can shorten that as such:</p>
+<p><br /><span class="math display">$$
+\definecolor{blue}{RGB}{181,204,227}
+\definecolor{salmon}{RGB}{250, 128, 114}
+\definecolor{normal}{RGB}{162,153,161}
+\text{map} \ (\underbrace{\color{salmon} \backslash x \rightarrow x}_{\color{blue}\text{not needed}} \color{normal} + 7) \ [1..10]
+$$</span><br /></p>
+<h3 id="why-does-const-flip-id-const-3-id-4-return-4">Why does <code>const flip id const 3 id 4</code> return <code>4</code>?</h3>
+<p>Because the expression is evaluated from <strong>left to right</strong> and functions can be input to functions. The three functions are defined as follows:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">id    <span class="fu">=</span> (\x <span class="ot">-&gt;</span> x)
+const <span class="fu">=</span> (\x y <span class="ot">-&gt;</span> x)
+flip  <span class="fu">=</span> (\f x y <span class="ot">-&gt;</span> f y x)</code></pre></div>
+<p>The expression <code>const flip id const 3 id 4</code> evaluates as such:</p>
+<p><br /><span class="math display">$$
+\definecolor{blue}{RGB}{181,204,227}
+\definecolor{normal}{RGB}{162,153,161}
+\begin{matrix}
+&amp; const &amp; flip &amp; id         &amp; const &amp; 3 &amp; id &amp; 4 \\
+= \ &amp; ( \color{blue}const\color{normal} &amp; \underbrace{flip}_{\color{blue}x} &amp; \underbrace{id}_{\color{blue}y}) &amp; const &amp; 3 &amp; id &amp; 4 \\
+= \ &amp; &amp; ( \color{blue}flip\color{normal} &amp; &amp; \underbrace{const}_{\color{blue}f} &amp; \underbrace{3}_{\color{blue}x} &amp; \underbrace{id}_{\color{blue}y}) &amp; 4 \\
+= \ &amp; &amp; &amp; &amp; ( \color{blue}const\color{normal} &amp; \underbrace{id}_{\color{blue}x} &amp; \underbrace{3}_{\color{blue}y}) &amp; 4 \\
+= \ &amp; &amp; &amp; &amp; &amp; &amp; ( \color{blue}id\color{normal} &amp; \underbrace{4}_{\color{blue}x}) \\
+= &amp; &amp; &amp; &amp; &amp; &amp; &amp; 4
+\end{matrix}
+$$</span><br /></p>
+<p><a href="#">back up</a></p>
+</main>
+
+<footer>
+    &copy; Fania Raczinski - Absolu 145 - <a href="http://jaspervdj.be/hakyll">λ</a>
+</footer>
+
+</body>
+</html>

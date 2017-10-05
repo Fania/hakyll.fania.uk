@@ -14,7 +14,7 @@ head: "<link rel='stylesheet' href='/css/pandoc.css' />
       </script>"
 ---
 
-## Setup Stuff
+## Setup
 
 ### How do I open GHCi?
 
@@ -128,8 +128,12 @@ add (4,6)
 
 Note that the first line in your script `add :: (Int, Int) -> Int` tells you which types of values you need to pass to the function as parameters. In this case the left hand side (before the `::`) tells you that the function is called `add` and the right hand side tells you that the function takes a **tuple** of two Integers `(Int, Int)` as input (before the `->`) and that the output of the function is an `Int` (after the `->`).
 
+[back up](#)
 
-## Intro to Expressions
+---
+
+
+## Expressions
 
 ### Div and mod aren’t working?
 
@@ -166,7 +170,7 @@ In this particular example, the variable `two` is defined as `2` in your script 
 two :: Integer
 ```
 
-`name` is defined as a String `"Haskell"` (of type`[Char]`). The function `length` returns an `Int` (see <a href="https://www.haskell.org/hoogle/?hoogle=length">here</a>), so `length name` will return an `7` of type `Int`.<br>Now, the multiplication function `*` requires you to call it with two values of the **same numeric type** (see <a href="https://www.haskell.org/hoogle/?hoogle=%28*%29">here</a>). But we have seen that GHCi interprets the value `two` as an `Integer` rather than an `Int`. Therefore trying to multiply it with  `length name` (which returns an `Int`) GHCi will return an error:
+`name` is defined as a String `"Haskell"` (of type`[Char]`). The function `length` returns an `Int` (see [here](https://www.haskell.org/hoogle/?hoogle=length)), so `length name` will return an `7` of type `Int`.<br>Now, the multiplication function `*` requires you to call it with two values of the **same numeric type** (see [here](https://www.haskell.org/hoogle/?hoogle=%28*%29)). But we have seen that GHCi interprets the value `two` as an `Integer` rather than an `Int`. Therefore trying to multiply it with  `length name` (which returns an `Int`) GHCi will return an error:
 
 ```bash
 Couldn’t match expected type `Integer’ with actual type `Int’
@@ -176,7 +180,7 @@ In the expression: two * length name
 ```
 
 On the other hand, if you type `2 * length name` into your terminal it will return `14` of type `Int`. That is because manually typing a number into GHCi will default to an `Int`.
-One way around this would be to convert the two parts of the evaluation to the same type. For example you can convert an `Int` to an `Integer` by using the `fromIntegral` function (see <a href="https://www.haskell.org/hoogle/?hoogle=fromIntegral">here</a>).
+One way around this would be to convert the two parts of the evaluation to the same type. For example you can convert an `Int` to an `Integer` by using the `fromIntegral` function (see [here](https://www.haskell.org/hoogle/?hoogle=fromIntegral)).
 
 ```haskell
 two * fromIntegral (length name)
@@ -184,13 +188,17 @@ two * fromIntegral (length name)
 it :: Integer
 ```
 
-Or using the `fromInteger` function (see <a href="https://www.haskell.org/hoogle/?hoogle=fromInteger">here</a>) similarly:
+Or using the `fromInteger` function (see [here](https://www.haskell.org/hoogle/?hoogle=fromInteger)) similarly:
 
 ```haskell
 fromInteger two * length name
 14
 it:: Int
 ```
+
+[back up](#)
+
+---
 
 
 ## Curry, Lamda and Sections
@@ -256,6 +264,10 @@ and:
 addSeven y = sumTwo 7 y
 ```
 
+[back up](#)
+
+---
+
 
 ## Tuples and Lists
 
@@ -300,6 +312,10 @@ Also, this means that if you type in lists of characters into GHCi it will retur
 "Haskell"
 it :: [Char]
 ```
+
+[back up](#)
+
+---
 
 
 ## Types, Polymorphism and Order of Execution
@@ -440,8 +456,12 @@ mult :: Int -> (Int -> (Int -> Int))
 
 You don’t have to add these parenthesis, but you should know that this is the default order of evaluation!
 
+[back up](#)
 
-## Writing functions
+---
+
+
+## Functions
 
 ### How do I write a function from scratch?
 
@@ -522,7 +542,7 @@ Let’s give this value a name (`n`) so that we can use it in our function by wr
 ```haskell
 halve :: [a] -> ([a],[a])
 halve xs = (   ,   )
-where n = length xs `div` 2
+      where n = length xs `div` 2
 ```
 
 Now we can define the two halves in our output tuple using the `take` and `drop` functions from the **Standard Haskell Prelude** (which is loaded into GHCi by default and we don’t have to manually import the library).  
@@ -534,45 +554,42 @@ The complete function then looks like this:
 ```haskell
 halve :: [a] -> ([a],[a])
 halve xs = ( take n xs , drop n xs )
-where n = length xs `div` 2
+      where n = length xs `div` 2
 ```
-<!-- 
+
 ### How do I split a list into three parts?
 
 We can use a similar approach to the `halve` function explained above.
 
-```
+```haskell
 split3 :: [a] -> ([a],[a],[a])
 split3 xs = (   ,   ,   )
-where n = length xs `div` 3
+      where n = length xs `div` 3
 ```
 
 Using `take` and `drop` and a variable `n` which represents a *third* of the length of `xs` we can create the various parts of our output tuple as such:
 
-<img src="http://fania.uk/stuff/table.png" alt="take drop table" title="take drop table examples">  
+![](images/table.png)
 
 So our final solution could be this (note from the table above that there are various options on how to extract the three thirds of the input list):
 
-```
+```haskell
 split3 :: [a] -> ([a],[a],[a])
 split3 xs = ( take n xs , take n (drop n xs) , drop (n*2) xs )
-where n = length xs `div` 3
+      where n = length xs `div` 3
 ```
 
-
-26">
-26">What are the different kinds of techniques for writing functions?
+### What are the different kinds of techniques for writing functions?
 
 There are various techniques in Haskell for writing functions and expressions. Some of them are fairly similar in style to other languages and others are quite different. Deciding when to use one technique over another depends on the purpose of the function.
 
-- Functions <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=67">link</a>
-- Anonymous functions / lambda functions <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=67">link</a>
-- Naming functions <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=68">link</a>
-- Structured Parameters <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=71">link</a>
-- Curried functions / partial function application <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=72">link</a>
-- Associativity <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=73">link</a>
-- `let` / `where` expressions <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=75">link</a>
-
+- [Functions](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=67)
+- [Anonymous functions / lambda functions](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=67)
+- [Naming functions](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=68)
+- [Structured Parameters](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=71)
+- [Curried functions / partial function application](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=72)
+- [Associativity](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=73)
+- [`let` / `where` expressions](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=75)
       - `let x = 3 in x * x + x`
       - `let x = 3 in let y = 4 in x + y`
       - `let {x = 3; y = 4} in x + y`
@@ -580,79 +597,64 @@ There are various techniques in Haskell for writing functions and expressions. S
       - `let {s = "One"; t = "Two"} in length s + length t`
       - `f (x,y) = let m = (x + y)/2 in (x-m, y-m)`
       - 
-```
+```haskell
 f (x,y) = s/p
 where s = x + y
 p = x * y
 ```
-
-
 - `if`/`then`/`else` statements
-
       - `if True then "bc" else "de"`
       - `1 + if 2/=2 then 3 else 4`
       - `(if 2/=2 then reverse else tail) "abc"`
-
-
-- Guarded equations <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=69">link</a>
-
+- [Guarded equations](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=69)
       - 
-```
+```haskell
 sign x 
-| x < 0  = -1
-| x == 0 = 0
-| x > 0  = 1
+      | x < 0  = -1
+      | x == 0 = 0
+      | x > 0  = 1
 ```
       - `sign x | x < 0  = -1 | x == 0 = 0 | x > 0  = 1`
-
-
-- `case` statements <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=76">link</a>
-
+- [`case` statements](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=76)
       - 
-```
+```haskell
 foo a = case a of
 (0,ys)      -> 0
 (x,(y:ys))  -> y
 (x,[])      -> x
 ```
-
-
-- Recursion <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=70">link</a>
-
+- [Recursion](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=70)
       - `fib n = if n == 0 then 1 else if n == 1 then 1 else fib (n-1) + fib (n-2)`
 
-
-- Pattern matching <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=76">link</a>
+- [Pattern matching](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=76)
 
       - 
-```
+```haskell
 fib 0 = 1
 fib 1 = 1
 fib n = fib (n-1) + fib (n-2)
 ```
-```
+      -
+```haskell
 foo (0,ys) = 0
 foo (x,(y:ys)) = y
 foo (x,[]) = x
 ```
 
-
-
-
-
-
-27">
-27">Functions
+### Functions
 
 Functions have a name and usually one or more input parameters. There is only ever one output. The type signature of a function is optional when writing functions in a script - Haskell can derive it by itself - but it is good practice to include the type signature as a form of documentation.
-```
+
+```haskell
 add :: Num a => a -> a > a -> a
 add x y z = x + y + z
 ```
-```
+
+```haskell
 add 1 2 3
 6
 ```
+
 E.g.
 
 $$
@@ -664,7 +666,6 @@ $$
 \underbrace{ \ \text{a} \rightarrow \ }_{\color{blue}\small\text{input 3}}
 \underbrace{ \ \text{a} \ }_{\color{blue}\small\text{output}}
 $$
-
 
 $$
 \definecolor{blue}{RGB}{181,204,227}
@@ -678,9 +679,7 @@ $$
 
 The **class constraint** is optional, and there can be `0` or more **input parameters** but always one **result**.
 
-
-28">
-28">Anonymous functions
+### Anonymous functions
 
 Anonymous functions or lambda functions are **nameless** functions. This allows us to declare them on the fly. The structure is as follows.
 
@@ -693,6 +692,7 @@ $$
 $$
 
 Instead of a function name we now have the **lambda** symbol (a backslash in Haskell) `\` and instead of the normal **assignment operator** `=` we use the `->` symbol.
+
 Similar to normal functions, we can use various techniques within a lamda expression and have more than one parameter. For example:
 
 - `\x -> 2 * x`
@@ -700,77 +700,79 @@ Similar to normal functions, we can use various techniques within a lamda expres
 - `\x y z ->  (x - 1/z) + y`
 - `\x y z -> if x then y + z else y - z`
 
-
 We can use lamda expressions as inputs for the `map` function:
-```
+
+```haskell
 map (\x -> if x == 1 then 0 else 1) [1,0,1,0,0,0,1,1]
 [0,1,0,1,1,1,0,0]
 ```
-```
+
+```haskell
 map (\(x,y) -> x + y) [(1,2),(2,3),(4,5)]
 [3,5,9]
 ```
 
+[back up](#)
 
-<br>
-<h3>List comprehensions</h3>
+---
 
-29">
-29">List comprehensions definition
 
-List comprehensions are defined in the official documentation <a href="https://www.haskell.org/onlinereport/exps.html#sect3.11">here</a> as:
-**`[ e | q1, ..., qn ]`**<br>where `n>=1` and the `qi` qualifiers are either
+## List comprehensions
+
+### List comprehensions definition
+
+List comprehensions are defined in the [official documentation](https://www.haskell.org/onlinereport/exps.html#sect3.11) as:
+**`[ e | q1, ..., qn ]`**  
+where `n>=1` and the `qi` qualifiers are either
 
 - **generators** of the form `p <- e`, where `p` is a pattern of type `t` and `e` is an expression of type `[t]`
 - **guards**, which are arbitrary expressions of type `Bool`
 - **local bindings** that provide new definitions for use in the generated expression e or subsequent guards and generators using `let` notation.
 
+See also David’s tutorial on [page 84](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=92).
 
-See also David’s tutorial on <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=92">page 84</a>.
-
-
-30">
-30">List comprehensions vs loops
+### List comprehensions vs loops
 
 In pseudo C using for-loops:
-```
-for ( int x = 1; x <= 4; x++ )
-{
-for ( int y = 1; y <= 2; y++ )
-{
-//add (x,y) to myList
+
+```c
+for ( int x = 1; x <= 4; x++ ) {
+      for ( int y = 1; y <= 2; y++ ) {
+            //add (x,y) to myList
+      }
 }
-}
 ```
+
 In Haskell:
-```
+
+```haskell
 myList = [(x,y) | x <- [1..4], y <- [1,2]]
 ```
-```
+
+```haskell
 ghci> mylist
 [(1,1),(1,2),(2,1),(2,2),(3,1),(3,2),(4,1),(4,2)]
 ```
 
+### Infinite lists
 
-31">
-31">Infinite lists
+Example taken from [haskell.org](https://wiki.haskell.org/List_comprehension):
 
-Example taken from <a href="https://wiki.haskell.org/List_comprehension">haskell.org</a>:
-```
+```haskell
 ghci> take 5 [ (i,j) | i <- [1,2], j <- [1..]] 
 [(1,1),(1,2),(1,3),(1,4),(1,5)]
 ```
-<blockquote>
-"each successive generator refines the results of the previous generator. Thus, if the second list is infinite, one will never reach the second element of the first list." <a href="https://wiki.haskell.org/List_comprehension">Source</a>
-</blockquote>
-So, because the second generator (the "inner loop") `[1..]` produces an infinite list, this list comprehension theoretically creates an infinite list of tuples: `[(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),..` etc. The first value of the tuple (`i`) is never incremented because we infinitely increment the second one (`j`) first.  
+
+
+> “each successive generator refines the results of the previous generator. Thus, if the second list is infinite, one will never reach the second element of the first list.” [Source](https://wiki.haskell.org/List_comprehension)
+
+So, because the second generator (the *inner loop*) `[1..]` produces an infinite list, this list comprehension theoretically creates an infinite list of tuples: `[(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),..` etc. The first value of the tuple (`i`) is never incremented because we infinitely increment the second one (`j`) first.
+
 The whole expression however asks only for the first 5 elements (`take 5`) of the infinite list that is being generated through the list comprehension.
 
+### Set Notation
 
-32">
-32">Set Notation
-
-Examples taken from <a href="http://en.wikipedia.org/wiki/List_comprehension#Overview">Wikipedia</a>:
+Examples taken from [Wikipedia](http://en.wikipedia.org/wiki/List_comprehension#Overview):
 In mathematics, set notation looks like this:  
 
 $$
@@ -785,95 +787,117 @@ $$
 S = \{ \underbrace{ \ 2 \cdot x \ }_{\color{blue}\text{output expr.}} \ | \ \underbrace{ \ x \ }_{\color{blue}\text{variable}} \in \underbrace{ \ \mathbb{N} \ }_{\color{blue}\text{input set}}, \ \underbrace{ \ x^2 > 3 \ }_{\color{blue}\text{predicate}} \}
 $$
 
-In <a href="http://en.wikipedia.org/wiki/List_comprehension#Haskell">Haskell</a> this translates directly into:
-```
+In [Haskell](http://en.wikipedia.org/wiki/List_comprehension#Haskell) this translates directly into:
+
+```haskell
 s = [ 2*x | x <- [0..], x^2 > 3]
 ```
-This reads something like:<br>"for each x from 0 to infinity: if x^2 is larger than 3 then return 2*x"
+
+This reads something like:  
+“for each x from 0 to infinity: if x^2 is larger than 3 then return 2*x”
 
 - `2*x` is the **output expression**
 - `|` separates the output expression from the generators, guards and local bindings
 - `x <- [0..]` is the **generator**
 - `x^2 > 3` is the **guard** condition
 
+### More List comprehension examples
 
+**if-then-else statements within the list comprehension:**
 
+Taken from: [learnyouahaskell.com](http://learnyouahaskell.com/starting-out#im-a-list-comprehension)
 
-33">
-33">More List comprehension examples
-
-**if-then-else statements within the list comprehension:**<br>Taken from: <a href="http://learnyouahaskell.com/starting-out#im-a-list-comprehension">http://learnyouahaskell.com/starting-out#im-a-list-comprehension</a>
-```
+```haskell
 boomBangs xs = [ if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x]
 ```
-```
+
+```haskell
 ghci> boomBangs [7..13]  
 ["BOOM!","BOOM!","BANG!","BANG!"]
 ```
+
 **Nested List comprehensions:**
-```
+```haskell
 ghci> let xxs = [[1,3,5,2,3,1,2,4,5],[1,2,3,4,5,6,7,8,9],[1,2,4,2,1,6,3,1,3,2,3,6]]  
 ghci> [ [ x | x <- xs, even x ] | xs <- xxs]  
 [[2,2,4],[2,4,6,8],[2,4,2,6,2,6]]
 ```
-**Local bindings using let expressions:**<br>Taken from: <a href="http://learnyouahaskell.com/syntax-in-functions#let-it-be">http://learnyouahaskell.com/syntax-in-functions#let-it-be</a>
-```
+
+**Local bindings using let expressions:**
+
+Taken from: [learnyouahaskell.com](http://learnyouahaskell.com/syntax-in-functions#let-it-be)
+
+```haskell
 calcBmis :: (RealFloat a) => [(a, a)] -> [a]  
 calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]
 ```
-```
+
+```haskell
 calcBmis :: (RealFloat a) => [(a, a)] -> [a]  
 calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0]
 ```
 
+### Lecture example
 
-34">
-34">Lecture example
-
-```
+```haskell
 positions :: Eq a => a -> [a] -> [Int]
 positions x xs =
-[i | (x’,i) <- zip xs [0..n], x == x’]
-where n = length xs - 1
+      [i | (x’,i) <- zip xs [0..n], x == x’]
+      where n = length xs - 1
 ```
+
 We can run this function as follows:
-```
+
+```haskell
 ghci> positions 0 [1,0,0,1,0,1,1,0]
 [1,2,4,7]
 ```
-To understand this function, let"s look at the list comprehension. Remember the expression around the left pointing arrow `<-` is called a **generator**.  
-The generator of this list comprehension (`(x’,i) <- zip xs [0..n]`) creates a list of type `[(x’,i)]` by "zipping" `xs` and `[0..n]` together. We are calling the function `positions` with `x` as `0` and `xs` as `[1,0,0,1,0,1,1,0]` and `n` is locally defined using the `where` notation as the length of our list `xs` minus `1`. The length of `xs` is `8`, therefore `n` must be `7`. This means that the generator will zip these two lists together:  
-```
+
+To understand this function, let’s look at the list comprehension. Remember the expression around the left pointing arrow `<-` is called a **generator**. 
+
+The generator of this list comprehension (`(x’,i) <- zip xs [0..n]`) creates a list of type `[(x’,i)]` by *zipping* `xs` and `[0..n]` together. We are calling the function `positions` with `x` as `0` and `xs` as `[1,0,0,1,0,1,1,0]` and `n` is locally defined using the `where` notation as the length of our list `xs` minus `1`. The length of `xs` is `8`, therefore `n` must be `7`. This means that the generator will zip these two lists together:  
+
+```haskell
 zip [1,0,0,1,0,1,1,0] [0,1,2,3,4,5,6,7]
 ```
+
 which returns:
-```
+
+```haskell
 [(1,0),(0,1),(0,2),(1,3),(0,4),(1,5),(1,6),(0,7)]
 ```
+
 Each of those tuples in this list is of type `(x",i)`. Now, the list comprehension states that we are only interested in those elements of the list where `x` is equal to `x"`. This is called the **guard** expression and is separated from the **generator** by a single comma. Remember that `x` is `0`. This means we can delete any elements of the list where `x"` is not equal to `0`. We are then left with:
-```
+
+```haskell
 [(0,1),(0,2),(0,4),(0,7)]
 ```
+
 The list comprehension also states that the type of our output list should be `[i]` (the bit before `|` in the list comprehension), that means we can discard all `x"` in our list of tuples `[(x",i)]` so that we are left with only the `i`:
-```
+
+```haskell
 [1,2,4,7]
 ```
 
+[back up](#)
 
-<br>
-<h3>Guards and map</h3>
+---
 
-35">
-35">Guarded equations
+
+## Guards and map
+
+### Guarded equations
 
 Here is an example of a guarded equation:
-```
+
+```haskell
 sign :: (Ord a, Num a) => a -> Int
 sign x 
-| x &lt; 0      = -1
-| x == 0     =  0
-| otherwise  =  1
+      | x &lt; 0      = -1
+      | x == 0     =  0
+      | otherwise  =  1
 ```
+
 This is very similar to mathematical notation:  
 
 $$
@@ -885,65 +909,78 @@ $$
 \end{cases}
 $$
 
-To write the `zoe` function we need to put the three specified cases into this "guarded" notation. If the input parameter `x` is `0` then we want to return `0`; if `x` is odd we want to return `1` and if `x` is even we return `2`. Putting what we know so far into code is easy:
-```
+To write the `zoe` function we need to put the three specified cases into this *guarded* notation. If the input parameter `x` is `0` then we want to return `0`; if `x` is odd we want to return `1` and if `x` is even we return `2`. Putting what we know so far into code is easy:
+
+```haskell
 zoe :: (Integral a, Num a) => a -> Int
 zoe x
-| "if x is equal to 0 return 0"
-| "if x is odd then return 1"
-| "if x is even then return 2"
+      | "if x is equal to 0 return 0"
+      | "if x is odd then return 1"
+      | "if x is even then return 2"
 ```
+
 These statements obviously need to be replaced with the appropriate conditional statements in Haskell. 
+
 `"if x is equal to 0 return 0"` can be written as `x == 0 = 0`. Checking if a number is even or odd can be done in two ways: we can either use the Standard Haskell Prelude functions `odd` and `even`, or we can use `mod` (for example, if the remainder of a number divided by `2` is `0` then the number must be **even**; if the remainder is `1` then it must be **odd**).
-```
+
+```haskell
 zoe :: (Integral a, Num a) => a -> Int
 zoe x
-| x == 0 = 0
-| odd x  = 1
-| even x = 2
+      | x == 0 = 0
+      | odd x  = 1
+      | even x = 2
 ```
+
 or
-```
+
+```haskell
 zoe :: (Integral a, Num a) => a -> Int
 zoe x
-| x == 0    = 0
-| odd x     = 1
-| otherwise = 2
+      | x == 0    = 0
+      | odd x     = 1
+      | otherwise = 2
 ```
+
 or
-```
+
+```haskell
 zoe :: (Integral a, Num a) => a -> Int
 zoe x
-| x == 0         = 0
-| x `mod` 2 == 1 = 1
-| x `mod` 2 == 0 = 2
+      | x == 0         = 0
+      | x `mod` 2 == 1 = 1
+      | x `mod` 2 == 0 = 2
 ```
 
+### How do I use the `map` function?
 
-36">
-36">How do I use the `map` function?
+> “`map f xs` is the list obtained by applying `f` to each element of `xs`” [Source](http://hackage.haskell.org/package/base-4.7.0.2/docs/Prelude.html#v:map)
 
-<blockquote>
-"`map f xs` is the list obtained by applying `f` to each element of `xs`" <a href="http://hackage.haskell.org/package/base-4.7.0.2/docs/Prelude.html#v:map">source</a>
-</blockquote>
 The `map` function has the following type signature:
-```
+
+```haskell
 map :: (a -> b) -> [a] -> [b]
 ```
+
 which means it takes a function of type `(a -> b)` as the first input parameter and a list of type `[a]` as the second. The function returns a list of type `[b]`.
+
 Now that you have seen **recursive functions** you should be able to understand the actual function definition of `map`.
-```
+
+```haskell
 map :: (a -> b) -> [a] -> [b]
 map _ []     = []
 map f (x:xs) = f x : map f xs
 ```
+
 We can run this function like this:
-```
+
+```haskell
 map (+1) [1,2,3,4,5,6]
 [2,3,4,5,6,7]
 ```
+
 It evaluates recursively like this:
-<pre class="demo">`
+
+```
 map (+1) [1,2,3,4,5,6]
 = (+1) 1 : map (+1) [2,3,4,5,6]
 = 2 : (+1) 2 : map (+1) [3,4,5,6]
@@ -954,6 +991,7 @@ map (+1) [1,2,3,4,5,6]
 = 2 : 3 : 4 : 5 : 6 : 7 : []
 = [2,3,4,5,6,7]
 ```
+
 Note also that when providing the `map` function with an **anonymous function** as the first input parameter, then we can shorten that as such:
 
 $$
@@ -963,12 +1001,16 @@ $$
 \text{map} \ (\underbrace{\color{salmon} \backslash x \rightarrow x}_{\color{blue}\text{not needed}} \color{normal} + 7) \ [1..10]
 $$
 
-**Why does `const flip id const 3 id 4` return `4`?**<br>Because the expression is evaluated from **left to right** and functions can be input to functions. The three functions are defined as follows:
-```
+### Why does `const flip id const 3 id 4` return `4`?
+
+Because the expression is evaluated from **left to right** and functions can be input to functions. The three functions are defined as follows:
+
+```haskell
 id    = (\x -> x)
 const = (\x y -> x)
 flip  = (\f x y -> f y x)
 ```
+
 The expression `const flip id const 3 id 4` evaluates as such:
 
 $$
@@ -984,4 +1026,4 @@ $$
 \end{matrix}
 $$
 
- -->
+[back up](#)

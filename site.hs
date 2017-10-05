@@ -36,7 +36,7 @@ main = hakyll $ do
                 >>= relativizeUrls
 
     -- About and Haskell pages with TOC
-    match (fromList ["about.md", "haskell.md"]) $ do
+    match (fromList ["haskell.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompilerWith defaultHakyllReaderOptions withToc
             >>= loadAndApplyTemplate "templates/withTOC.html" defaultContext
@@ -44,7 +44,7 @@ main = hakyll $ do
             >>= relativizeUrls
 
     -- Other pages without TOC
-    match (fromList ["images.md", "links.md", "contact.md"]) $ do
+    match (fromList ["about.md", "images.md", "links.md", "contact.md"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
@@ -116,25 +116,12 @@ main = hakyll $ do
   where
     withToc = defaultHakyllWriterOptions
         { writerTableOfContents = True
-        -- , writerTOCDepth = 3
+        , writerTOCDepth        = 2
         , writerTemplate        = Just "$toc$\n$body$"
-        , writerHtml5 = True
-        , writerHighlight  = True
+        , writerHtml5           = True
+        , writerHighlight       = True
         }
 
--- myPandocCompiler = 
---     let writerOps = defaultHakyllWriterOptions
---                     { writerTableOfContents = True
---                     -- , writerTemplate = "$if(toc)$\n$toc$\n$endif$\n$body$"
---                     , writerTemplate = Just "$toc$\n$body$"
---                     , writerHighlight  = True
---                     -- , writerTOCDepth = 3
---                     -- , writerHighlightStyle = Style,
---                     , writerExtensions = S.insert Ext_literate_haskell (writerExtensions def)
---                     -- , writerHtml5 = True
---                     } 
---     in pandocCompilerWith defaultHakyllReaderOptions writerOps
-        
 
 --------------------------------------------------------------------------------
 

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fania - Virtualenv</title>
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    
+</head>
+<body>
+
+<header>
+    <a href="../">
+        <img width="30" src="../images/loadspiral.gif" alt="spiral logo" />
+        Fania.eu
+    </a>
+</header>
+<nav>
+    <h1><a href="../">Home</a></h1>
+    <a href="../about.html">About</a>
+    <a href="../stuff.html">Stuff</a>
+    <a href="../images.html">Images</a>
+    <a href="../links.html">Links</a>
+    <a href="../haskell.html">Haskell</a>
+    <a href="../contact.html">Contact</a>
+</nav>
+
+<main>
+    <article>
+    <section class="postheader">
+        <h1>Virtualenv</h1>
+        <p>
+            Posted on 01.10.2017
+            
+        </p>
+        <p>
+            
+        </p>
+    </section>
+    <section>
+        <ul>
+<li><a href="http://virtualenv.readthedocs.org/en/latest/virtualenv.html#usage">Virtualenv Reference</a></li>
+<li>Create a new venv <code>virtualenv NAME</code></li>
+<li><i class="fa fa-apple"></i> Activate NAME <code>. NAME/bin/activate</code></li>
+<li><i class="fa fa-windows"></i> Activate NAME <code>NAME\scripts\activate</code></li>
+<li>Deactivate <code>deactivate</code></li>
+</ul>
+<h2 id="virtualenvwrapper">Virtualenvwrapper</h2>
+<ul>
+<li><a href="https://github.com/davidmarble/virtualenvwrapper-win">Virtualenvwrapper-win</a></li>
+<li><a href="http://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html">Reference</a></li>
+<li>Make a new venv <code>mkvirtualenv ENVNAME</code></li>
+<li>List all virtualenvs <code>workon</code> or <code>lsvirtualenv</code></li>
+<li>Activate a virtualenv <code>workon ENVNAME</code></li>
+<li>Deactivate virtualenv <code>deactivate</code></li>
+<li>Remove virtualenv <code>deactivate</code> and then <code>rmvirtualenv ENVNAME</code></li>
+<li><i class="fa fa-windows"></i> Bind ENVNAME to project <code>setprojectdir &lt;project_path&gt;</code></li>
+<li><i class="fa fa-apple"></i> Bind ENVNAME to project <code>setvirtualenvproject [virtualenv_path project_path]</code></li>
+</ul>
+<h3 id="virtualenvwrapper-win-not-finding-virtualenv-script.py">Virtualenvwrapper-win not finding virtualenv-script.py</h3>
+<ul>
+<li><i class="fa fa-windows"></i> Edit <code>C:\PythonXY\scripts\mkvirtualenv.bat</code> with the following changes on lines 47, 48</li>
+<li><i class="fa fa-windows"></i> Line 47 <code>virtualenv.exe %*</code></li>
+<li><i class="fa fa-windows"></i> Line 48 <code>REM python.exe “%PYHOME%\Scripts\virtualenv-script.py” %ARGS%</code></li>
+</ul>
+    </section>
+</article>
+
+</main>
+
+<footer>
+    &copy; Fania Raczinski - Absolu 145 - <a href="http://jaspervdj.be/hakyll">λ</a>
+</footer>
+
+</body>
+</html>
