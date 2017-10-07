@@ -40,8 +40,8 @@ The thesis itself can be read at [dr.physics.wtf](http://dr.physics.wtf/), and m
 - *Creative search using pataphysics*, paper for Creativity & Cognition conference in Sydney 2013, [link](http://dl.acm.org/citation.cfm?id=2466648)
 - *The Pataphysics of the Future*, talk for the TDC at De Montfort University 2013, [link](https://www.youtube.com/watch?v=UxYUZMyPE0o)
 - *A Framework for Creativity in Search Results*, paper for CONTENT conference in Rome 2011, [link](http://www.thinkmind.org/index.php?view=article&articleid=content_2011_3_30_60068)
-- *The Imaginary Voyage*, an online opera by Hugill, Scott, Wake-Walker and the Opera Group, [link](http://andrewhugill.com/theimaginaryvoyage/#)
-- *PataLib* An API for pataphysical search on [GitHub](https://github.com/patamechanix/patalib).
+- Related: *The Imaginary Voyage*, an online opera by Hugill, Scott, Wake-Walker and the Opera Group, [link](http://andrewhugill.com/theimaginaryvoyage/#)
+- Related: *PataLib* An API for pataphysical search (by Andrew Dennis, built on my work) on [GitHub](https://github.com/patamechanix/patalib).
 
 
 

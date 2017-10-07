@@ -2,9 +2,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid
 import           Hakyll
--- import           Data.Map as M (lookup)
--- import           Data.Maybe
-import qualified Data.Set as S
 import           Text.Pandoc
 
 --------------------------------------------------------------------------------

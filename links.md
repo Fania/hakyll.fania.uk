@@ -6,6 +6,11 @@ title: Links
 
 Bookmarks, perhaps.
 
+---
+
+[The Evolution of Trust](http://ncase.me/trust/) 
+A bit depressing really.
+
 [butdoesitfloat](http://butdoesitfloat.com/") 
 More arts stuff. I could get lost in there.
 
