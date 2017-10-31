@@ -4,9 +4,15 @@ title: Images
 
 # Images
 
-## Japan
+<input id="tabjapan" type="radio" name="tabs" checked>
+<label for="tabjapan">Japan</label>
+<input id="tabiceland" type="radio" name="tabs">
+<label for="tabiceland">Iceland</label>
+<input id="tabsydney" type="radio" name="tabs">
+<label for="tabsydney">Sydney</label>
+<section id="japan" class="gallery">
+## Japan 2011
 
-<section class="gallery">
 ![Japan](../images/japan01.jpg)
 ![Japan](../images/japan02.jpg)
 ![Japan](../images/japan03.jpg)
@@ -18,13 +24,9 @@ title: Images
 ![Japan](../images/japan10.jpg)
 </section>
 
-[More photos in my gallery.](http://japan.fania.eu)
+<section id="iceland" class="gallery">
+## Iceland 2013
 
----
-
-## Iceland
-
-<section class="gallery">
 ![Iceland](../images/iceland01.jpg)
 ![Iceland](../images/iceland02.jpg)
 ![Iceland](../images/iceland03.jpg)
@@ -36,13 +38,9 @@ title: Images
 ![Iceland](../images/iceland09.jpg)
 </section>
 
-[More photos in my gallery.](http://iceland.fania.eu)
+<section id="sydney" class="gallery">
+## Sydney 2013
 
----
-
-## Sydney
-
-<section class="gallery">
 ![Sydney](../images/sydney01.jpg)
 ![Sydney](../images/sydney02.jpg)
 ![Sydney](../images/sydney03.jpg)
@@ -53,11 +51,3 @@ title: Images
 ![Sydney](../images/sydney08.jpg)
 ![Sydney](../images/sydney09.jpg)
 </section>
-
-[More photos in my gallery.](http://sydney.fania.eu)
-
----
-
-[![People](../images/people.jpg)](http://gallery.fania.eu)
-[![Stockholm](../images/stockholm.jpg)](http://stockholm.fania.eu)
-

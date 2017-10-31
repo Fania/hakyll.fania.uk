@@ -1,6 +1,8 @@
-/* dark blue #54668C
-light grey #DFDFE4
-light blue #75859F */
+/* 
+  dark blue #54668C
+  light grey #DFDFE4
+  light blue #75859F
+*/
 
 
 html {
@@ -17,7 +19,7 @@ body {
   margin: 0px;
 }
   
-header {
+header#logo {
   font-size: 28px;
   font-weight: bold;
   height: 32px;
@@ -26,12 +28,12 @@ header {
   text-transform: uppercase;
 }
   
-header img {
+header#logo img {
   float: left;
   margin: 0px 30px 0px 0px;
 }
   
-header a {
+header#logo a {
   text-decoration: none;
 }
   
@@ -56,6 +58,19 @@ main {
   overflow: hidden;
 }
 
+img {
+  border: none;
+  display: block;
+  margin: 6px auto 30px auto;
+}
+
+.cover {
+  /* position: relative; */
+  max-width: 150px;
+  max-height: 80px;
+  overflow: hidden;
+}
+
 .gallery img {
   max-width: 31%;
   margin: 0;
@@ -72,7 +87,7 @@ a img {
 }
 
 .postheader {
-  margin-top: 10px;
+  margin: 10px 0;
 }
   
 footer {
@@ -125,19 +140,6 @@ h1,h2 {
   
 h1 a,h2 a,h3 a {
   text-decoration: none;
-}
-  
-img {
-  border: none;
-  display: block;
-  margin: 6px auto 30px auto;
-}
-
-.cover {
-  /* position: relative; */
-  max-width: 150px;
-  max-height: 80px;
-  overflow: hidden;
 }
 
 .fa {
@@ -192,6 +194,31 @@ hr {
 }
 
 
+/* radio button tabs */
+input,
+section.gallery {
+  display: none;
+}
+label {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  margin: .25em;
+}
+a:hover, label:hover {
+  color: #54668C;
+}
+#tabjapan:checked ~ #japan,
+#tabiceland:checked ~ #iceland,
+#tabsydney:checked ~ #sydney {
+  display: block;
+}
+[id^="tab"]:checked + label {
+  border-bottom: 2px #ccc solid;
+}
+
+
 
 @media only screen and (max-width: 800px)  {
   .gallery img {
@@ -200,13 +227,11 @@ hr {
 }
 
 @media only screen and (max-width:  500px)  {
-  header {
+  header#logo {
     margin: 30px auto;
     width: 70%;
-    /* text-align: center; */
-    /* float: none; */
   }
-  header img {
+  header#logo img {
     margin: 0px 30px 0px 10px;
   }
   nav {
@@ -218,6 +243,9 @@ hr {
   nav a {
     display: inline-block;
     float: none;
+  }
+  nav #home {
+    display: none;
   }
   main {
     margin: 10px auto;
