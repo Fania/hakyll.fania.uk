@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fania - Server Stuff</title>
+  <link rel="stylesheet" href="../css/default.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  
+</head>
+<body>
+
+<header id="logo">
+  <a href="../">
+    <img width="30" src="../images/loadspiral.gif" alt="spiral logo" />
+    Fania.eu
+  </a>
+</header>
+<nav>
+  <span id="home"><a href="../">Home</a></span>
+  <a href="../about.html">About</a>
+  <a href="../stuff.html">Stuff</a>
+  <a href="../images.html">Images</a>
+  <a href="../links.html">Links</a>
+  <a href="../haskell.html">Haskell</a>
+  <a href="../contact.html">Contact</a>
+</nav>
+
+<main>
+  <article>
+  <header class="postheader">
+    <h1>Server Stuff</h1>
+    <p>
+      Posted on 15.11.2017
+      
+    </p>
+    <p>
+      
+    </p>
+  </header>
+  <section>
+    <h2 id="nginx-config-files">NGINX config files</h2>
+<p>cd /etc/nginx/sites-available cd /etc/nginx/snippets</p>
+<p>service nginx stop service nginx restart nginx -t</p>
+<p>sudo ln -s name /etc/nginx/sites-enabled/name</p>
+<p><a href="https://gist.github.com/robbiet480/b1e9a2a22501b8304547">CouchDB Nginx conf</a> <a href="https://www.ssllabs.com/ssltest/">SSL Checker</a></p>
+<h3 id="fix-ssl-labs-server-rating-ubuntu-nginx">fix ssl labs server rating ubuntu nginx</h3>
+<!-- 1. sudo apt-get install --only-upgrade libssl1.0.0 openssl -->
+<!-- 2. service nginx upgrade -->
+<p><a href="https://blog.cloudflare.com/yet-another-padding-oracle-in-openssl-cbc-ciphersuites">link</a></p>
+<h2 id="netstat">Netstat</h2>
+<p>netstat -plutn</p>
+<h2 id="couchdb-config-file">CouchDB config file</h2>
+<p>nano /etc/couchdb/local.ini</p>
+<p>/etc/init.d/couchdb stop /etc/init.d/couchdb restart</p>
+<p>/home/couch</p>
+<h2 id="certbot">CertBot</h2>
+<ul>
+<li>generate an SSL certificae certbot certonly</li>
+<li>show certificates certbot certificates</li>
+</ul>
+<h2 id="ssl-certificates">SSL certificates</h2>
+<p>cd /etc/letsencrypt/live</p>
+<h2 id="screen">Screen</h2>
+<ul>
+<li>show all running screens screen -ls</li>
+<li>start new screen with name screen -S name</li>
+<li>attach to a running session screen -x</li>
+<li>attach to session name screen -r name <!-- - detaching *Ctrl-a d* --></li>
+</ul>
+  </section>
+</article>
+
+</main>
+
+<footer>
+  &copy; Fania Raczinski - Absolu 145 - <a href="http://jaspervdj.be/hakyll">λ</a>
+</footer>
+
+</body>
+</html>
