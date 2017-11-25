@@ -1,21 +1,21 @@
 <!-- <ul>
-    $for(posts)$
-        <li>
-            <a href="$url$">$title$</a> - $date$
-        </li>
-    $endfor$
+  $for(posts)$
+    <li>
+      <a href="$url$">$title$</a> - $date$
+    </li>
+  $endfor$
 </ul> -->
 
 
 <ul class="nobullets">
-    $for(posts)$
-        <li>
-            <a href="$url$">
-            <div class="index">
-                <img src="../images/$cover$" class="cover" />
-            </div>
-            <!-- <span>$title$</span> -->
-            </a>
-        </li>
-    $endfor$
+  $for(posts)$
+    <li>
+      <a href="$url$">
+      <div class="index">
+        <img src="../images/$cover$" alt="$title$" class="cover" />
+      </div>
+      <!-- <span>$title$</span> -->
+      </a>
+    </li>
+  $endfor$
 </ul>

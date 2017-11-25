@@ -13,7 +13,7 @@ main = hakyll $ do
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
-    
+
     -- CSS
     match "css/*" $ do
         route   idRoute

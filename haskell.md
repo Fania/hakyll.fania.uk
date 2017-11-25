@@ -20,12 +20,12 @@ head: "<link rel='stylesheet' href='/css/pandoc.css' />
 
 Just open a terminal window and simply type `ghci` to open the Glasgow Haskell Compiler in interactive mode.
 
-In the computer labs in the Gateway building you need to log into Linux where Haskell is already installed. If you want to install Haskell on your laptop or home computer you can download it [here](https://www.haskell.org/). Alternatively, if you just quickly want to try an expression but don’t have Haskell installed on your computer at home, you can use the interactive prompt on [haskell.org](https://www.haskell.org/) or [tryhaskell.org](http://tryhaskell.org/). There is even an app for iOS devices ([Raskell](http://slidetocode.com/raskell)). **Let me know if you find a good app for Android!**
+In the computer labs in the Gateway building you need to log into Linux where Haskell is already installed. If you want to install Haskell on your laptop or home computer you can download it [here](https://www.haskell.org/). Alternatively, if you just quickly want to try an expression but do not have Haskell installed on your computer at home, you can use the interactive prompt on [haskell.org](https://www.haskell.org/) or [tryhaskell.org](http://tryhaskell.org/). There is even an app for iOS devices ([Raskell](http://slidetocode.com/raskell)). **Let me know if you find a good app for Android!**
 
 
-### What’s the point of `:set +t`?
+### What is the point of `:set +t`?
 
-Setting this will show the type of any value returned. It is optional but useful. You will have to set this every time you restart GHCi. Don’t forget to type the `:` at the start of the expression. In some of the examples throughout the lab sessions you will encounter instructions telling you to type `:s +t` which might not work on your machine. Use `:set +t` instead.
+Setting this will show the type of any value returned. It is optional but useful. You will have to set this every time you restart GHCi. Do not forget to type the `:` at the start of the expression. In some of the examples throughout the lab sessions you will encounter instructions telling you to type `:s +t` which might not work on your machine. Use `:set +t` instead.
 
 ### Setting up your GHCi config file
 
@@ -70,7 +70,7 @@ An example `ghci.conf` file can look like this:
 
 ### Hoogle
 
-Don’t forget you can check what functions do in [Hoogle](https://www.haskell.org/hoogle/?hoogle=floor): floor. For example, you can also search for functions by their type declarations: `String -> Int` [Hoogle: String -> Int](https://www.haskell.org/hoogle/?hoogle=String+-%3E+Int).
+Do not forget you can check what functions do in [Hoogle](https://www.haskell.org/hoogle/?hoogle=floor): floor. For example, you can also search for functions by their type declarations: `String -> Int` [Hoogle: String -> Int](https://www.haskell.org/hoogle/?hoogle=String+-%3E+Int).
 
 ### How do I load scripts into GHCi?
 
@@ -90,11 +90,11 @@ Prelude> :load Script101.hs
 - `:load` or `:l` to load a script
 - You need to be in the correct directory
 - `:cd` to change directory within GHCi
-- You don’t have to type the file extension `.hs`
+- You do not have to type the file extension `.hs`
 
 ### How do I use script files and functions?
 
-Let’s assume you have a script file which contains the following code:
+Let us assume you have a script file which contains the following code:
 
 ```haskell
 add x y = x + y
@@ -135,7 +135,7 @@ Note that the first line in your script `add :: (Int, Int) -> Int` tells you whi
 
 ## Expressions
 
-### Div and mod aren’t working?
+### Div and mod are not working?
 
 The expressions ``x `div` y`` and ``x `mod` y`` need **backwards quotes** (left of the ‘1’ key on the keyboard). Note that the above notation is just syntactic sugar for `div x y` and `mod x y` - you can interchange them as you like.
 
@@ -159,7 +159,7 @@ The `if` statement automatically takes precedence over the addition:
 
 ### How does `(if 2/=2 then reverse else tail) "abc"` work?
 
-Here, the `if` statement determines which function to apply to the string `"abc"`. Since 2 is ***not*** not equal to 2, it’s `False` and the function performs `tail "abc"` and returns `"bc"`.
+Here, the `if` statement determines which function to apply to the string `"abc"`. Since 2 is ***not*** not equal to 2, it is `False` and the function performs `tail "abc"` and returns `"bc"`.
 
 ### Why does `two * length name` produce an error?
 
@@ -173,7 +173,7 @@ two :: Integer
 `name` is defined as a String `"Haskell"` (of type`[Char]`). The function `length` returns an `Int` (see [here](https://www.haskell.org/hoogle/?hoogle=length)), so `length name` will return an `7` of type `Int`.<br>Now, the multiplication function `*` requires you to call it with two values of the **same numeric type** (see [here](https://www.haskell.org/hoogle/?hoogle=%28*%29)). But we have seen that GHCi interprets the value `two` as an `Integer` rather than an `Int`. Therefore trying to multiply it with  `length name` (which returns an `Int`) GHCi will return an error:
 
 ```bash
-Couldn’t match expected type `Integer’ with actual type `Int’
+Could not match expected type `Integer’ with actual type `Int’
 In the return type of a call of `length’
 In the second argument of `(*)’, namely `length name’
 In the expression: two * length name
@@ -370,7 +370,7 @@ In the expression: add 1.4 2.6 3.0
 In an equation for `it’: it = add 1.4 2.6 3.0
 ```
 
-If your `add` function has the specific kind of type definition then trying to run `add 1.4 2.6.3.0` returns an error for example. This is because you have told Haskell that your function only works with `Ints`. If you use the more generic (**polymorphic** and **overloaded**) type definition however, then you’d get the result.
+If your `add` function has the specific kind of type definition then trying to run `add 1.4 2.6.3.0` returns an error for example. This is because you have told Haskell that your function only works with `Ints`. If you use the more generic (**polymorphic** and **overloaded**) type definition however, then you would get the result.
 
 ```haskell
 add :: Num a => a -> a -> a -> a
@@ -391,7 +391,7 @@ it :: Fractional a => a
 
 ### What are *polymorphic* and *overloaded* functions again?
 
-A function is **polymorphic** if it takes values that can have **more than one type**. See David Smallwood’s tutorial [here](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page63). For example, `length` is defined polymorphically. In this case `a` is a **type variable** and represents any type. The function therefore takes a list of any type of value (`[Int]`, `[[Char]]`, `[(Double, Bool)]`, etc) but then specifically returns an `Int`.
+A function is **polymorphic** if it takes values that can have **more than one type**. See the tutorial by David Smallwood [here](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page63). For example, `length` is defined polymorphically. In this case `a` is a **type variable** and represents any type. The function therefore takes a list of any type of value (`[Int]`, `[[Char]]`, `[(Double, Bool)]`, etc) but then specifically returns an `Int`.
 
 ```haskell
 length :: [a] -> Int
@@ -454,7 +454,7 @@ mult :: Int -> (Int -> (Int -> Int))
 ((mult x) y) z
 ```
 
-You don’t have to add these parenthesis, but you should know that this is the default order of evaluation!
+You do not have to add these parenthesis, but you should know that this is the default order of evaluation!
 
 [back up](#)
 
@@ -465,20 +465,20 @@ You don’t have to add these parenthesis, but you should know that this is the 
 
 ### How do I write a function from scratch?
 
-In the first exercise we are asked to write a function that splits a list into two halves. We are given the function’s **type signature** as a starting point.
+In the first exercise we are asked to write a function that splits a list into two halves. We are given the **type signature** as a starting point.
 
 ```haskell
 halve :: [a] -> ([a],[a])
 ```
 
-Let’s start filling in the bits we know, e.g. we know the name of the function (`halve`) and that the output is structured as a **tuple**.
+Let us start filling in the bits we know, for example we know the name of the function (`halve`) and that the output is structured as a **tuple**.
 
 ```haskell
 halve :: [a] -> ([a],[a])
 halve = (   ,   )
 ```
 
-*Note that this won’t run - GHCi will return an error because it’s an incomplete function!*
+*Note that this will not run - GHCi will return an error because it is an incomplete function!*
 
 Next, we know the input to the function is a list of polymorphic type, so we know that we will be able to call this function in GHCi like this:  
 
@@ -516,7 +516,7 @@ which would return:
 ("Has","kell")
 ```
 
-**Now, let’s get back to writing our function by filling in the gaps of `halve  = (   ,   )`.**
+**Now, let us get back to writing our function by filling in the gaps of `halve  = (   ,   )`.**
 
 We know from the **type signature** `halve :: [a] -> ([a],[a])` that there is one input parameter of type `[a]` and one output tuple of type `([a],[a])`.
 
@@ -525,19 +525,19 @@ $$
 \text{halve} \ {\underbrace{\qquad\qquad\qquad} \atop \color{blue}\small\text{input parameter}} \ = \ ( {\underbrace{\qquad\qquad\qquad} \atop \color{blue}\small\text{first half}} \ , \ {\underbrace{\qquad\qquad\qquad} \atop \color{blue}\small\text{second half}} \ )
 $$
 
-Let’s call the input parameter `xs`: *remember the convention to put an `s` on variables that represent lists!*
+Let us call the input parameter `xs`: *remember the convention to put an `s` on variables that represent lists!*
 
 ```haskell
 halve xs = (   ,   )
 ```
 
-Next, let’s think of how to get the **first half** of `xs`. How do we know what *half* of the input list is? Well, it’s the total length of `xs` divided by `2`, right?
+Next, let us think of how to get the **first half** of `xs`. How do we know what *half* of the input list is? Well, it is the total length of `xs` divided by `2`, right?
 
 ```haskell
 length xs `div` 2
 ```
 
-Let’s give this value a name (`n`) so that we can use it in our function by writing it into a `where` statement in a new line and slightly indented (this is important).
+Let us give this value a name (`n`) so that we can use it in our function by writing it into a `where` statement in a new line and slightly indented (this is important).
 
 ```haskell
 halve :: [a] -> ([a],[a])
@@ -545,7 +545,7 @@ halve xs = (   ,   )
       where n = length xs `div` 2
 ```
 
-Now we can define the two halves in our output tuple using the `take` and `drop` functions from the **Standard Haskell Prelude** (which is loaded into GHCi by default and we don’t have to manually import the library).  
+Now we can define the two halves in our output tuple using the `take` and `drop` functions from the **Standard Haskell Prelude** (which is loaded into GHCi by default and we do not have to manually import the library).  
 
 Since `n` now represents the length of half the input list `xs` we can **take the first n elements in the list xs** which translates into Haskell like this: `take n xs`. Similarly we can **drop the first n elements from the list xs** to get the second half: `drop n xs`.
 
@@ -569,7 +569,7 @@ split3 xs = (   ,   ,   )
 
 Using `take` and `drop` and a variable `n` which represents a *third* of the length of `xs` we can create the various parts of our output tuple as such:
 
-![](images/table.png)
+![take drop example](images/table.png)
 
 So our final solution could be this (note from the table above that there are various options on how to extract the three thirds of the input list):
 
@@ -729,7 +729,7 @@ where `n>=1` and the `qi` qualifiers are either
 - **guards**, which are arbitrary expressions of type `Bool`
 - **local bindings** that provide new definitions for use in the generated expression e or subsequent guards and generators using `let` notation.
 
-See also David’s tutorial on [page 84](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=92).
+See also the tutorial by David Smallwood on [page 84](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=92).
 
 ### List comprehensions vs loops
 
@@ -853,7 +853,7 @@ ghci> positions 0 [1,0,0,1,0,1,1,0]
 [1,2,4,7]
 ```
 
-To understand this function, let’s look at the list comprehension. Remember the expression around the left pointing arrow `<-` is called a **generator**. 
+To understand this function, let us look at the list comprehension. Remember the expression around the left pointing arrow `<-` is called a **generator**. 
 
 The generator of this list comprehension (`(x’,i) <- zip xs [0..n]`) creates a list of type `[(x’,i)]` by *zipping* `xs` and `[0..n]` together. We are calling the function `positions` with `x` as `0` and `xs` as `[1,0,0,1,0,1,1,0]` and `n` is locally defined using the `where` notation as the length of our list `xs` minus `1`. The length of `xs` is `8`, therefore `n` must be `7`. This means that the generator will zip these two lists together:  
 
