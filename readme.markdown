@@ -1,6 +1,12 @@
 # README
 
 
+## Solutions Log
+https://wiki.haskell.org/Pointfree
+http://lambda.jstolarek.com/2012/03/function-composition-and-dollar-operator-in-haskell/
+
+
+
 https://jaspervdj.be/hakyll/tutorials/01-installation.html
 
 

@@ -34,7 +34,7 @@
 <ul>
 <li><a href="#setup">Setup</a></li>
 <li><a href="#expressions">Expressions</a></li>
-<li><a href="#curry-lamda-and-sections">Curry, Lamda and Sections</a></li>
+<li><a href="#curry-lambda-and-sections">Curry, Lambda and Sections</a></li>
 <li><a href="#tuples-and-lists">Tuples and Lists</a></li>
 <li><a href="#types-polymorphism-and-order-of-execution">Types, Polymorphism and Order of Execution</a></li>
 <li><a href="#functions">Functions</a></li>
@@ -138,7 +138,7 @@ add (x,y) <span class="fu">=</span> x <span class="fu">+</span> y</code></pre></
 <span class="ot">it::</span> <span class="dt">Int</span></code></pre></div>
 <p><a href="#">back up</a></p>
 <hr />
-<h2 id="curry-lamda-and-sections">Curry, Lamda and Sections</h2>
+<h2 id="curry-lambda-and-sections">Curry, Lambda and Sections</h2>
 <p>See page 64 of David Smallwoods <a href="https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=72">tutorial file</a>. The following examples are taken from <a href="https://wunki.org/posts/2011-10-04-currying-and-partial-application.html">wunki.org</a></p>
 <h3 id="curried-and-uncurried-functions">Curried and uncurried functions</h3>
 <p><strong>Uncurried</strong> function:</p>
@@ -148,8 +148,8 @@ fooU (x, y) <span class="fu">=</span> x <span class="fu">*</span> y</code></pre>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fooC ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
 fooC x y <span class="fu">=</span> x <span class="fu">*</span> y</code></pre></div>
 <p>The main difference <em>in very simple terms</em> is that the function parameters <code>x</code> and <code>y</code> are given separately in curried functions compared to a tuple in uncurried functions <code>(x,y)</code>.</p>
-<h3 id="anonymous-lamda-functions">Anonymous / Lamda functions</h3>
-<p>Lamda functions are sometimes called anonymous functions because they are not given a name.</p>
+<h3 id="anonymous-lambda-functions">Anonymous / Lambda functions</h3>
+<p>Lambda functions are sometimes called anonymous functions because they are not given a name.</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fooA ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span>
 fooA x <span class="fu">=</span> \y <span class="ot">-&gt;</span> x <span class="fu">*</span> y</code></pre></div>
 <p>Note that the type signature indicates that the function takes 2 input parameters of type Int, even though in the function expression it only lists 1 of them as <code>x</code>.</p>
@@ -418,14 +418,14 @@ $$</span><br /></p>
 \underbrace{ \ \text{x*2} \ }_{\color{blue}\small\text{output}} 
 $$</span><br /></p>
 <p>Instead of a function name we now have the <strong>lambda</strong> symbol (a backslash in Haskell) <code>\</code> and instead of the normal <strong>assignment operator</strong> <code>=</code> we use the <code>-&gt;</code> symbol.</p>
-<p>Similar to normal functions, we can use various techniques within a lamda expression and have more than one parameter. For example:</p>
+<p>Similar to normal functions, we can use various techniques within a lambda expression and have more than one parameter. For example:</p>
 <ul>
 <li><code>\x -&gt; 2 * x</code></li>
 <li><code>\x y -&gt; x + y</code></li>
 <li><code>\x y z -&gt;  (x - 1/z) + y</code></li>
 <li><code>\x y z -&gt; if x then y + z else y - z</code></li>
 </ul>
-<p>We can use lamda expressions as inputs for the <code>map</code> function:</p>
+<p>We can use lambda expressions as inputs for the <code>map</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">map (\x <span class="ot">-&gt;</span> <span class="kw">if</span> x <span class="fu">==</span> <span class="dv">1</span> <span class="kw">then</span> <span class="dv">0</span> <span class="kw">else</span> <span class="dv">1</span>) [<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>]
 [<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">map (\(x,y) <span class="ot">-&gt;</span> x <span class="fu">+</span> y) [(<span class="dv">1</span>,<span class="dv">2</span>),(<span class="dv">2</span>,<span class="dv">3</span>),(<span class="dv">4</span>,<span class="dv">5</span>)]

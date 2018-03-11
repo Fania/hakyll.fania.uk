@@ -201,7 +201,7 @@ it:: Int
 ---
 
 
-## Curry, Lamda and Sections
+## Curry, Lambda and Sections
   
 See page 64 of David Smallwoods [tutorial file](https://vle.dmu.ac.uk/bbcswebdav/pid-3025849-dt-content-rid-4603139_1/courses/CTEC1901_2015_Y/tut.pdf#page=72). The following examples are taken from [wunki.org](https://wunki.org/posts/2011-10-04-currying-and-partial-application.html)
 
@@ -223,9 +223,9 @@ fooC x y = x * y
 
 The main difference *in very simple terms* is that the function parameters `x` and `y` are given separately in curried functions compared to a tuple in uncurried functions `(x,y)`.
 
-### Anonymous / Lamda functions
+### Anonymous / Lambda functions
 
-Lamda functions are sometimes called anonymous functions because they are not given a name.
+Lambda functions are sometimes called anonymous functions because they are not given a name.
 
 ```haskell
 fooA :: Int -> Int -> Int
@@ -693,14 +693,14 @@ $$
 
 Instead of a function name we now have the **lambda** symbol (a backslash in Haskell) `\` and instead of the normal **assignment operator** `=` we use the `->` symbol.
 
-Similar to normal functions, we can use various techniques within a lamda expression and have more than one parameter. For example:
+Similar to normal functions, we can use various techniques within a lambda expression and have more than one parameter. For example:
 
 - `\x -> 2 * x`
 - `\x y -> x + y`
 - `\x y z ->  (x - 1/z) + y`
 - `\x y z -> if x then y + z else y - z`
 
-We can use lamda expressions as inputs for the `map` function:
+We can use lambda expressions as inputs for the `map` function:
 
 ```haskell
 map (\x -> if x == 1 then 0 else 1) [1,0,1,0,0,0,1,1]
