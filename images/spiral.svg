@@ -6,7 +6,7 @@
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   version="1.0"
-  width="400" height="400" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+  width="30" height="30" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
   <animateTransform xlink:href="#spiral"
     attributeName="transform" attributeType="XML"
     type="rotate"
