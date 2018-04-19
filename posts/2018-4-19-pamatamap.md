@@ -1,6 +1,6 @@
 ---
 title: Pamatamap
-date: 2017-04-19
+date: 2018-04-19
 tags: art, code, phd
 cover: technology-landscape.png
 ---
