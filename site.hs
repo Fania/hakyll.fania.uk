@@ -3,121 +3,124 @@
 import           Data.Monoid
 import           Hakyll
 import           Text.Pandoc
+import qualified GHC.IO.Encoding as E
 
 --------------------------------------------------------------------------------
 
 main :: IO ()
-main = hakyll $ do
+main = do
+    E.setLocaleEncoding E.utf8
+    hakyll $ do
 
-    -- Static folder
-    match "images/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+        -- Static folder
+        match "images/*" $ do
+            route   idRoute
+            compile copyFileCompiler
 
-    -- CSS
-    match "css/*" $ do
-        route   idRoute
-        compile compressCssCompiler
+        -- CSS
+        match "css/*" $ do
+            route   idRoute
+            compile compressCssCompiler
 
-    -- Index
-    create ["index.html"] $ do
-        route idRoute
-        compile $ do
-            posts <- fmap (take 6) . recentFirst =<< loadAll "posts/*"
-            let indexCtx =
-                    listField "posts" postCtx (return posts) <>
-                    defaultContext
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/index.html" indexCtx
-                >>= loadAndApplyTemplate "templates/default.html" indexCtx
+        -- Index
+        create ["index.html"] $ do
+            route idRoute
+            compile $ do
+                posts <- fmap (take 6) . recentFirst =<< loadAll "posts/*"
+                let indexCtx =
+                        listField "posts" postCtx (return posts) <>
+                        defaultContext
+                makeItem ""
+                    >>= loadAndApplyTemplate "templates/index.html" indexCtx
+                    >>= loadAndApplyTemplate "templates/default.html" indexCtx
+                    >>= relativizeUrls
+
+        -- About and Haskell pages with TOC
+        match (fromList ["haskell.md"]) $ do
+            route   $ setExtension "html"
+            compile $ pandocCompilerWith defaultHakyllReaderOptions withToc
+                >>= loadAndApplyTemplate "templates/withTOC.html" defaultContext
+                >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
 
-    -- About and Haskell pages with TOC
-    match (fromList ["haskell.md"]) $ do
-        route   $ setExtension "html"
-        compile $ pandocCompilerWith defaultHakyllReaderOptions withToc
-            >>= loadAndApplyTemplate "templates/withTOC.html" defaultContext
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
-
-    -- Other pages without TOC
-    match (fromList ["about.md", "images.md", "links.md", "contact.md"]) $ do
-        route   $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
-
-    -- Tags
-    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
-
-    -- Tag pages
-    tagsRules tags $ \tag pattern -> do
-        let title = "Posts tagged \"" ++ tag ++ "\""
-        route idRoute
-        compile $ do
-            posts <- recentFirst =<< loadAll pattern
-            let ctx = constField "title" title <>
-                      listField "posts" postCtx (return posts) <>
-                      defaultContext
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/tag.html" ctx
-                >>= loadAndApplyTemplate "templates/default.html" ctx
+        -- Other pages without TOC
+        match (fromList ["about.md", "images.md", "links.md", "contact.md"]) $ do
+            route   $ setExtension "html"
+            compile $ pandocCompiler
+                >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
 
-    -- Individual posts
-    match "posts/*" $ do
-        route $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
-            >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
-            >>= relativizeUrls
+        -- Tags
+        tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
-    -- Posts main page
-    create ["stuff.html"] $ do
-        route idRoute
-        compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
-            let archiveCtx =
-                    listField "posts" postCtx (return posts) <>
-                    constField "title" "Stuff"               <>
-                    defaultContext
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/stuff.html" archiveCtx
-                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+        -- Tag pages
+        tagsRules tags $ \tag pattern -> do
+            let title = "Posts tagged \"" ++ tag ++ "\""
+            route idRoute
+            compile $ do
+                posts <- recentFirst =<< loadAll pattern
+                let ctx = constField "title" title <>
+                        listField "posts" postCtx (return posts) <>
+                        defaultContext
+                makeItem ""
+                    >>= loadAndApplyTemplate "templates/tag.html" ctx
+                    >>= loadAndApplyTemplate "templates/default.html" ctx
+                    >>= relativizeUrls
+
+        -- Individual posts
+        match "posts/*" $ do
+            route $ setExtension "html"
+            compile $ pandocCompiler
+                >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
+                >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
                 >>= relativizeUrls
 
-    -- Individual solutions
-    match "solutions/*" $ do
-        route $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html" postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
-            >>= relativizeUrls
+        -- Posts main page
+        create ["stuff.html"] $ do
+            route idRoute
+            compile $ do
+                posts <- recentFirst =<< loadAll "posts/*"
+                let archiveCtx =
+                        listField "posts" postCtx (return posts) <>
+                        constField "title" "Stuff"               <>
+                        defaultContext
+                makeItem ""
+                    >>= loadAndApplyTemplate "templates/stuff.html" archiveCtx
+                    >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                    >>= relativizeUrls
 
-    -- Solutions main page
-    create ["cheats.html"] $ do
-        route idRoute
-        compile $ do
-            solutions <- recentFirst =<< loadAll "solutions/*"
-            let archiveCtx =
-                    listField "solutions" postCtx (return solutions) <>
-                    constField "title" "Solutions Log"                    <>
-                    defaultContext
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/cheats.html" archiveCtx
-                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+        -- Individual solutions
+        match "solutions/*" $ do
+            route $ setExtension "html"
+            compile $ pandocCompiler
+                >>= loadAndApplyTemplate "templates/post.html" postCtx
+                >>= loadAndApplyTemplate "templates/default.html" postCtx
                 >>= relativizeUrls
 
-    -- Templates
-    match "templates/*" $ compile templateCompiler
-  where
-    withToc = defaultHakyllWriterOptions
-        { writerTableOfContents = True
-        , writerTOCDepth        = 2
-        , writerTemplate        = Just "$toc$\n$body$"
-        , writerHtml5           = True
-        , writerHighlight       = True
-        }
+        -- Solutions main page
+        create ["cheats.html"] $ do
+            route idRoute
+            compile $ do
+                solutions <- recentFirst =<< loadAll "solutions/*"
+                let archiveCtx =
+                        listField "solutions" postCtx (return solutions) <>
+                        constField "title" "Solutions Log"                    <>
+                        defaultContext
+                makeItem ""
+                    >>= loadAndApplyTemplate "templates/cheats.html" archiveCtx
+                    >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                    >>= relativizeUrls
+
+        -- Templates
+        match "templates/*" $ compile templateCompiler
+    where
+        withToc = defaultHakyllWriterOptions
+            { writerTableOfContents = True
+            , writerTOCDepth        = 2
+            , writerTemplate        = Just "$toc$\n$body$"
+            , writerHtml5           = True
+            , writerHighlight       = True
+            }
 
 
 --------------------------------------------------------------------------------

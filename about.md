@@ -6,7 +6,7 @@ title: About me
 
 ### Current
 
-I’m a lecturer at [De Montfort University](http://dmu.ac.uk) (DMU), where I teach *Functional Programming*, *Research* and *Front End Web Development*.
+I'm a lecturer at [De Montfort University](http://dmu.ac.uk) (DMU), where I teach *Functional Programming*, *Research* and *Front End Web Development*.
 
 
 ### UnCurrent

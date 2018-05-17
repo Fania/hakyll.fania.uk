@@ -9,7 +9,7 @@ cover: technology-landscape.png
 
 I have now finished the map for my PhD thesis.
 
-It is handwritten svg code (based on a design originally created in Inkscape).
+It's handwritten svg code (based on a design originally created in Inkscape).
 
 
 
