@@ -7,9 +7,9 @@ cover: technology-landscape.png
 
 <img src="../images/technology-landscape.png">
 
-I've now finished the map for my PhD thesis.
+I have now finished the map for my PhD thesis.
 
-It's handwritten svg code (based on a design originally created in Inkscape).
+It is handwritten svg code (based on a design originally created in Inkscape).
 
 
 
